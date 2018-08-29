@@ -323,27 +323,25 @@ global:
     text_water:                         '#5b7c9a' # ∆
     text_stroke:                        '#fff'    # ∆
     #label fonts
-    text_font_family:                   'Benton'  # ∆
+    text_font_family:                   'SourceSansPro'  # ∆
 
 
 fonts:
-    Benton:
+    SourceSansPro:
        - weight: 300 # Light
-         url: https://s3.amazonaws.com/latimes-datadesk-template/fonts/0.5.0/benton-gothic-light.woff
+         url: https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_300.woff2
        - weight: normal # Regular
-         url: https://s3.amazonaws.com/latimes-datadesk-template/fonts/0.5.0/benton-gothic-regular.woff
+         url: https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_400.woff2
        - weight: normal # Regular
          style: italic
-         url: https://s3.amazonaws.com/latimes-datadesk-template/fonts/0.5.0/benton-gothic-condensed-regular-italic.woff
+         url: https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_italic_400.woff2
        - weight: 600 # Semi Bold
-         url: https://s3.amazonaws.com/latimes-datadesk-template/fonts/0.5.0/benton-gothic-medium.woff
+         url: https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_600.woff2
        - weight: 600 # Semi Bold
          style: italic
-         url: https://s3.amazonaws.com/latimes-datadesk-template/fonts/0.5.0/benton-gothic-medium-italic.woff
+         url: https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_italic_600.woff2
        - weight: bold
-         url: https://s3.amazonaws.com/latimes-datadesk-template/fonts/0.5.0/benton-gothic-bold.woff
-       - weight: condnensed
-         url: https://s3.amazonaws.com/latimes-datadesk-template/fonts/0.5.0/benton-gothic-condensed-regular.woff
+         url: https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_700.woff2
 
 
 cameras:
