@@ -218,15 +218,15 @@ global:
     #lights:
     light_settings: { type: directional, direction: [1, 1, -.9], diffuse: 0.5, ambient: 0.85 }
 
-
-    background:                         '#fff'
+    #default land color
+    background:                         '#f3eddc'
 
     #water
     water_visible_ocean:                true # ∆
     water_visible_inland_water:         true # ∆
     water_visible_swimming_pools:       false # ∆
     #water Color
-    water:                              '#B4DDF4' # ∆
+    water:                              '#B3E6FF' # ∆
 
     #landuse
     landuse_style:                      polygons # ∆
@@ -253,7 +253,7 @@ global:
     # - &forest                         '#E7F1CA'
     landuse_hospital:                   '#E2EDEF'
     landuse_military:                   '#eff0ef'
-    landuse_park:                       '#E7F1CA'
+    landuse_park:                       '#cbe4ba'
     landuse_farm:                       '#F5FBE7'
     # - &prison                         '#eff0ef'
     landuse_theme_park:                 '#F9F3D6'
@@ -323,25 +323,37 @@ global:
     text_water:                         '#5b7c9a' # ∆
     text_stroke:                        '#fff'    # ∆
     #label fonts
-    text_font_family:                   'SourceSansPro'  # ∆
+    text_font_family:                   'Antenna'  # ∆
 
 
 fonts:
     SourceSansPro:
        - weight: 300 # Light
          url: https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_300.woff2
-       - weight: normal # Regular
+       - weight: 400 # Regular
          url: https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_400.woff2
-       - weight: normal # Regular
+       - weight: 400 # Regular italic
          style: italic
          url: https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_italic_400.woff2
-       - weight: 600 # Semi Bold
+       - weight: 600 # Semi Bold 
          url: https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_600.woff2
-       - weight: 600 # Semi Bold
+       - weight: 600 # Semi Bold italic
          style: italic
          url: https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_italic_600.woff2
-       - weight: bold
+       - weight: 700 # Bold
          url: https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_700.woff2
+
+    Antenna:
+       - weight: 100 # Light
+         url: https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/extralight/antennaextralight.woff
+       - weight: 400 # Regular
+         url: https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/regular/antennaregular.woff
+       - weight: 600 # Medium
+         url: https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/2908d944-93cf-4073-8ab6-ff417bc9759a-3.woff
+       - weight: 700 # Bold
+         url: https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/b9884997-4bb8-4ffa-ac3c-a2d5598fb1b2-3.woff
+       - weight: 900 # Extra Bold
+         url: https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/b9884997-4bb8-4ffa-ac3c-a2d5598fb1b2-3.woff
 
 
 cameras:
@@ -1438,7 +1450,7 @@ layers:
                                 font:
                                     fill: global.road_text
                                     weight: normal
-                                    size: [[14, 28px],[15, 30px]]
+                                    size: [[14, 21px],[15, 25px]]
                                     stroke: { color: [[14, global.text_stroke], [15,[0.969,0.973,0.973]]], width: [[15, 3px], [16, 4px]] }
                         z14:
                             filter: { $zoom: [14] }
@@ -1459,7 +1471,7 @@ layers:
                             visible: global.labels_visible_major_roads
                             font:
                                 fill: global.road_text
-                                size: [[12, 28px],[15, 30px]]
+                                size: [[12, 21px],[15, 25px]]
                                 stroke: { color: global.text_stroke, width: 3px }
                     z16:
                         filter: { $zoom: [16] }
@@ -1521,7 +1533,7 @@ layers:
                                 visible: global.labels_visible_major_roads
                                 font:
                                     fill: global.road_text
-                                    size: [[12, 28px],[15, 30px]]
+                                    size: [[12, 21px],[15, 25px]]
                                     stroke: { color: global.text_stroke, width: 3px }
                 labels-secondary:
                     filter:
@@ -1533,7 +1545,7 @@ layers:
                             visible: global.labels_visible_major_roads
                             font:
                                 fill: global.road_text
-                                size: [[12, 28px],[15, 30px]]
+                                size: [[12, 20px],[15, 25px]]
                                 stroke: { color: global.text_stroke, width: 3px }
             tertiary:
                 filter: { kind_detail: [tertiary, tertiary_link] }
@@ -1631,7 +1643,7 @@ layers:
                         visible: global.labels_visible_minor_roads
                         font:
                             fill: global.road_text_minor
-                            size: [[13, 26px], [15, 28px]]
+                            size: [[13, 20px], [15, 25px]]
                             # stroke: { color: [[15, global.text_stroke], [17,[0.969,0.973,0.973]]], width: 4px }
             early-residential:
                 filter: { kind_detail: residential, $zoom: { max: 15 } }
@@ -1671,7 +1683,7 @@ layers:
                         visible: global.labels_visible_service_roads
                         font:
                             fill: global.road_text_minor
-                            size: [[13, 26px], [15, 28px]]
+                            size: [[13, 20px], [15, 25px]]
 
 
         shields:
@@ -1725,7 +1737,7 @@ layers:
                         font:
                             family: global.text_font_family
                             fill: global.road_text_minor
-                            size: 22px
+                            size: 20px
 
             default_priority_highway:
                 filter:
@@ -1926,7 +1938,7 @@ layers:
                                 offset: [0px, -2px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 22px
+                                    size: 20px
                     width_1char:
                         filter: function() { return (feature.shield_text.length === 1) }
                         draw:
@@ -1969,7 +1981,7 @@ layers:
                                 offset: [0px, 0px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 22px
+                                    size: 20px
                     motorway:
                         filter: { kind_detail: [motorway], $zoom: [7,8] }
                         draw:
@@ -2027,7 +2039,7 @@ layers:
                                 offset: [0px, -1px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 22px
+                                    size: 20px
                     width_1char:
                         filter: function() { return (feature.shield_text.length === 1) }
                         draw:
@@ -2069,7 +2081,7 @@ layers:
                                 offset: [0px, 1px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 22px
+                                    size: 20px
                     width_1char:
                         filter: function() { return (feature.shield_text.length === 1) }
                         draw:
@@ -2112,7 +2124,7 @@ layers:
                             text:
                                 font:
                                     fill: global.road_text_minor
-                                    size: 22px
+                                    size: 20px
                     width_1char:
                         filter: function() { return (feature.shield_text.length === 1) }
                         draw:
@@ -2770,7 +2782,7 @@ layers:
                         font:
                             family: global.text_font_family
                             weight: normal
-                            size: [[8,26px],[10,28px],[12,32px]]
+                            size: [[8,19px],[10,21px],[12,25px]]
                             fill: global.text_fill
                 text-blend-order:
                     visible: global.labels_visible_cities

@@ -1,36 +1,71 @@
 @font-face {
     font-family: 'Source Sans Pro';
     src: url('https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_400.woff2');
-    font-weight:normal;
+    font-weight:400;
     font-style:normal;
 }
 
 @font-face {
     font-family: 'Source Sans Pro Italic';
     src: url('https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_italic_400.woff2');
-    font-weight:normal;
-    font-style:normal;
+    font-weight:400;
+    font-style:italic;
 }
 
 @font-face {
     font-family: 'Source Sans Pro Bold';
     src: url('https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_600.woff2');
-    font-weight:normal;
+    font-weight:600;
     font-style:normal;
 }
 
 @font-face {
     font-family: 'Source Sans Pro Bold Italic';
     src: url('https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_italic_600.woff2');
-    font-weight:normal;
-    font-style:normal;
+    font-weight:600;
+    font-style:italic;
 }
 
 @font-face {
     font-family: 'Source Sans Pro Extra Bold';
     src: url('https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_700.woff2');
-    font-weight:normal;
+    font-weight:700;
     font-style:normal;
+}
+
+@font-face{
+  font-family: 'Antenna Regular';
+  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/regular/antennaregular.woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'Antenna Extra Light';
+  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/extralight/antennaextralight.woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'Antenna Extra Bold';
+  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/b9884997-4bb8-4ffa-ac3c-a2d5598fb1b2-3.woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'Antenna Bold';
+  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/b9884997-4bb8-4ffa-ac3c-a2d5598fb1b2-3.woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'Antenna Medium';
+  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/2908d944-93cf-4073-8ab6-ff417bc9759a-3.woff');
+  font-weight: bold;
+  font-style: normal;
 }
 
 body h1 {
