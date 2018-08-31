@@ -344,7 +344,7 @@ fonts:
          url: https://sfc-project-files.s3.amazonaws.com/fonts/Source_Sans_Pro_700.woff2
 
     Antenna:
-       - weight: 100 # Light
+       - weight: 300 # Light
          url: https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/extralight/antennaextralight.woff
        - weight: 400 # Regular
          url: https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/regular/antennaregular.woff
