@@ -361,7 +361,7 @@ cameras:
 
 scene:
     background:
-        color: global.background
+        color: '#ffffff'
 
 # need corresponding if you want POI labels show up
 textures:
@@ -1644,7 +1644,7 @@ layers:
                         font:
                             fill: global.road_text_minor
                             size: [[13, 20px], [15, 25px]]
-                            # stroke: { color: [[15, global.text_stroke], [17,[0.969,0.973,0.973]]], width: 4px }
+                            stroke: { color: [[15, global.text_stroke], [17,[0.969,0.973,0.973]]], width: 4px }
             early-residential:
                 filter: { kind_detail: residential, $zoom: { max: 15 } }
                 draw:
@@ -1684,6 +1684,7 @@ layers:
                         font:
                             fill: global.road_text_minor
                             size: [[13, 20px], [15, 25px]]
+                            stroke: { color: [[14, global.text_stroke], [15,[0.969,0.973,0.973]]], width: [[15, 3px], [16, 4px]] }
 
 
         shields:
@@ -2784,6 +2785,7 @@ layers:
                             weight: normal
                             size: [[8,19px],[10,21px],[12,25px]]
                             fill: global.text_fill
+                            stroke: { color: [[14, global.text_stroke], [15,[0.969,0.973,0.973]]], width: [[15, 3px], [16, 4px]] }
                 text-blend-order:
                     visible: global.labels_visible_cities
                     buffer: 10px
