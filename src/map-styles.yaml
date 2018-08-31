@@ -1451,7 +1451,7 @@ layers:
                                     fill: global.road_text
                                     weight: normal
                                     size: [[14, 21px],[15, 25px]]
-                                    stroke: { color: [[14, global.text_stroke], [15,[0.969,0.973,0.973]]], width: [[15, 3px], [16, 4px]] }
+                                    stroke: { color: global.text_stroke, width: 4 }
                         z14:
                             filter: { $zoom: [14] }
                             draw:
@@ -1595,7 +1595,7 @@ layers:
                             font:
                                 fill: global.road_text_minor
                                 size: [[13, 26px], [15, 28px]]
-                                stroke: { color: [[13, global.text_stroke], [15, [0.969,0.973,0.973]]], width: 4px }
+                                stroke: { color: global.text_stroke, width: 4 }
         minor_road:
             filter: { kind: minor_road, not: { kind_detail: service }, $zoom: { min: 13 } }
             draw:
@@ -1644,7 +1644,7 @@ layers:
                         font:
                             fill: global.road_text_minor
                             size: [[13, 20px], [15, 25px]]
-                            stroke: { color: [[15, global.text_stroke], [17,[0.969,0.973,0.973]]], width: 4px }
+                            stroke: { color: global.text_stroke, width: 4 }
             early-residential:
                 filter: { kind_detail: residential, $zoom: { max: 15 } }
                 draw:
@@ -1684,8 +1684,7 @@ layers:
                         font:
                             fill: global.road_text_minor
                             size: [[13, 20px], [15, 25px]]
-                            stroke: { color: [[14, global.text_stroke], [15,[0.969,0.973,0.973]]], width: [[15, 3px], [16, 4px]] }
-
+                            stroke: { color: global.text_stroke, width: 4 }
 
         shields:
             filter:
@@ -2392,7 +2391,7 @@ layers:
                         fill: '#666'
                         family: global.text_font_family
                         style: italic
-                        transform: uppercase
+                        #transform: uppercase
                         size: 24px
                         # stroke: { color: global.text_stroke_address, width: 1 }
             building_labels-z15-z16-z17:
@@ -2531,7 +2530,7 @@ layers:
                             size: 22px
                             # height: 20px
                             fill: [0.35,0.35,0.35]
-                            transform: uppercase
+                            #transform: uppercase
         city_walls:
             filter: { kind: city_wall }
             draw:
@@ -2785,7 +2784,7 @@ layers:
                             weight: normal
                             size: [[8,19px],[10,21px],[12,25px]]
                             fill: global.text_fill
-                            stroke: { color: [[14, global.text_stroke], [15,[0.969,0.973,0.973]]], width: [[15, 3px], [16, 4px]] }
+                            stroke: { color: global.text_stroke, width: 4 }
                 text-blend-order:
                     visible: global.labels_visible_cities
                     buffer: 10px
@@ -2799,7 +2798,7 @@ layers:
             #     filter: { $zoom: { min: 11 } }
             #     draw:
             #         icons:
-            #             size: 0px
+            #             size: 38px
             #             text:
             #                 anchor: center
             #
@@ -3274,8 +3273,8 @@ layers:
                 - function() { if( feature.kind == 'attraction' || feature.kind == 'landmark' || feature.kind == 'hunting' || feature.kind == 'dive_centre' || feature.kind == 'gas_canister' || feature.kind == 'hunting' || feature.kind == 'fishing_area' || feature.kind == 'playground' || feature.kind == 'toilets' || feature.kind == 'drinking_water' || feature.kind == 'cycle_barrier' || feature.kind == 'bicycle_rental_station' ) { return true; } else { return feature.min_zoom <= $zoom; } }
         draw:
             icons:
-                visible: global.icon_visible_poi_landuse
-                size: 0px
+                visible: global.labels_visible_points_of_interest
+                size: 38px
                 sprite: function() { return feature.kind; }
                 sprite_default: generic
                 interactive: global.interactive
@@ -3288,12 +3287,13 @@ layers:
                     text_wrap: 15
                     max_lines: 5
                     font:
-                        transform: uppercase
+                        #transform: uppercase
                         family: global.text_font_family
                         weight: 300
-                        style: italic
+                        #style: italic
                         fill: global.text_fill
-                        size: [[13,24px],[14,24px],[18,26px]]
+                        size: 16px
+                        stroke: { color: global.text_stroke, width: 2 }
             text:
                 visible: false    # labels are enabled by each layer below, and these are only for special cases like enclosures
                 move_into_tile: true # preserves text alignment w/icons in JS
@@ -3536,7 +3536,7 @@ layers:
         #         kind: [natural_forest, natural_park, natural_wood]
         #     draw:
         #         icons:
-        #             size: 0px
+        #             size: 38px
         #             priority: 100
         #             text:
         #                 font:
@@ -3560,7 +3560,7 @@ layers:
         #         kind: [common, grass, houseboat, pedestrian, railway, ship, wetland]
         #     draw:
         #         icons:
-        #             size: 0px
+        #             size: 38px
         #             text: { font: { style: italic } }
 
         # the server should be setting better values here
@@ -3681,19 +3681,17 @@ layers:
                 {kind: [university, college], { $zoom: { min: 13} } }
             draw:
                 icons:
-                    visible: global.icon_visible_poi_landuse
-                    size: 0px
+                    size: 38px
                     text:
                         visible: global.labels_visible_points_of_interest
                         priority: 40
-                        text_wrap: 15
-                        max_lines: 5
                         text_source: global.ux_language_text_source_abbreviation
                         placement: centroid
                         font:
-                            weight: normal
+                            weight: light
                             style: italic
                             fill: global.text_fill
+                            stroke: { color: global.text_stroke, width: 3 }
             school-early:
                 filter:
                     kind: [school, kindergarten]
@@ -3801,15 +3799,14 @@ layers:
                 kind: national_park
             draw:
                 icons:
-                    visible: global.icon_visible_poi_landuse
-                    size: 0px
+                    size: 38px
                     sprite: park
                     priority: 41
                     text:
-                        visible: global.labels_visible_points_of_interest
                         font:
                             fill: global.text_fill
                             style: italic
+                            stroke: { color: global.text_stroke, width: 3 }
 
         parks:
             filter:
@@ -3817,48 +3814,45 @@ layers:
                 - { kind: protected_area, not: { protect_class: [6, '6'] } }
             draw:
                 icons:
-                    visible: global.icon_visible_poi_landuse
-                    size: 0px
+                    size: 38px
                     sprite: park
                     priority: 41
                     text:
-                        visible: global.labels_visible_points_of_interest
                         font:
                             fill: global.text_fill
                             style: italic
+                            stroke: { color: global.text_stroke, width: 3 }
 
             only-text-later:
                 filter: { kind: [grass], $zoom: { min: 16 } }
                 draw:
                     icons:
-                        size: 0px
+                        size: 38px
                         text:
                             font:
                                 style: italic
+                                stroke: { color: global.text_stroke, width: 3 }
         forest:
             filter:
                 - kind: forest
                 - { kind: protected_area, protect_class: [6, '6'] }
             draw:
                 icons:
-                    visible: global.icon_visible_poi_landuse
-                    size: 0px
+                    size: 38px
                     sprite: forest
                     priority: 41
                     text:
-                        visible: global.labels_visible_points_of_interest
                         font:
                             fill: global.text_fill
                             style: italic
+                            stroke: { color: global.text_stroke, width: 3 }
         beach:
             filter:
                 kind: [beach]
             draw:
                 icons:
-                    visible: true
-                    size: 0px
+                    size: 38px
                     text:
-                        visible: global.labels_visible_points_of_interest
                         font:
                             fill: global.text_fill
         airport:
@@ -3866,8 +3860,7 @@ layers:
                 kind: [airport, aerodrome]
             draw:
                 icons:
-                    visible: global.labels_visible_points_of_interest
-                    size: 0px
+                    size: 38px
                     priority: 42
                     text:
                         text_source: global.ux_language_text_source
@@ -3880,26 +3873,26 @@ layers:
             draw:
                 icons:
                     priority: 43
-                    size: 0px
+                    size: 38px
                     text:
                         text_wrap: 10
                         font:
                             style: italic
-                            weight: normal
+                            weight: light
+                            stroke: { color: global.text_stroke, width: 3 }
         glacier:
             filter:
                 kind: glacier
             draw:
                 icons:
-                    size: 0px
-                    visible: global.icon_visible_poi_landuse
+                    size: 38px
                     text:
-                        visible: global.labels_visible_points_of_interest
                         priority: 44
                         text_wrap: 10
                         font:
-                            weight: normal
+                            weight: light
                             style: italic
+                            stroke: { color: global.text_stroke, width: 3 }
         building-like:
             filter: { kind: [commercial,residential,warehouse,public,dormitory], osm_relation: false }
             draw:
@@ -3911,14 +3904,14 @@ layers:
             draw:
                 icons:
                     priority: 45
-                    size: 0px
+                    size: 38px
                     text:  { font: { size: 24px, style: italic } }
         garden-no-area-later:
             filter: { kind: [garden, allotments], $zoom: { min: 17 }, area: false }
             draw:
                 icons:
                     priority: 45
-                    size: 0px
+                    size: 38px
                     text:  { font: { size: 24px, style: italic } }
 
         parking-labels:
@@ -3928,18 +3921,18 @@ layers:
             draw:
                 icons:
                     text:
-                        visible: global.labels_visible_points_of_interest
                         font:
                             size: 24px
+                            stroke: { color: global.text_stroke, width: 3 }
         tower:
             filter: { kind: [tower], label_placement: true }
             draw:
                 icons:
-                    size: 0px
-                    visible: global.icon_visible_poi_landuse
+                    size: 38px
                     text:
                         font:
                             style: italic
+                            stroke: { color: global.text_stroke, width: 3 }
 
 
         airport-gate:
@@ -3956,11 +3949,6 @@ layers:
                         size: [[16,9px],[17,12px],[20,14px]]
             later:
                 filter: { $zoom: { min: 19 } }
-                draw:
-                    icons:
-                        text:
-                            font:
-                                weight: 600
 
     water-area-labels:
         data: { source: nextzen, layer: [water] }
@@ -3995,9 +3983,9 @@ layers:
                         fill: global.text_water
                         family: global.text_font_family
                         style: italic
-                        weight: normal
+                        weight: light
                         size: 28px
-                        # stroke: { color: [0.878,0.929,0.980], width: 2 }
+                        stroke: { color: global.text_stroke, width: 3 }
         lakes-z5:
             filter: { $zoom: [5] }
             draw:
@@ -4024,7 +4012,7 @@ layers:
                     weight: normal
                     style: italic
                     size: 22px
-                    transform: uppercase
+                    stroke: { color: global.text_stroke, width: 3 }
         ocean-labels:
             draw:
                 text-blend-order:
