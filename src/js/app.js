@@ -490,15 +490,8 @@ function downloadIMG() {
                     }
                 });
             }
-
-
-
-
-
         });
-
     }
-
 } // downloadIMG();
 
 

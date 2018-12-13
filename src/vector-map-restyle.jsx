@@ -40,7 +40,7 @@ app.executeMenuCommand("doc-color-cmyk");
 
 
 // define "sources" font
-var defaultFont = "BentonGothic-Regular";
+var defaultFont = "Antenna Medium";
 
 // define colors
 var highwayColor = new CMYKColor(); highwayColor.black = 40; highwayColor.cyan = 0; highwayColor.magenta = 0; highwayColor.yellow = 0;

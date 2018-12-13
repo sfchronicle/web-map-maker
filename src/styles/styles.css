@@ -220,7 +220,7 @@ body {
 
 /* hide canvas */
 #canvas {
-    display: none;
+  display: none;
 }
 
 .ui-icon-gripsmall-diagonal-se {background-position: -81px -224px; right: 10px;}
@@ -228,13 +228,13 @@ body {
 label {font:18px/27px Georgia, serif;}
 
 .map-info {
-    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-family: 'Antenna Extra Light', Arial, sans-serif;
     display: inline-block;
     margin: 5px 10px 0 0;
 }
 
 #map_size {
-    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-family: 'Antenna Extra Light', Arial, sans-serif;
     float: right;
     padding: 0 10px 0 0;
 }
@@ -253,11 +253,11 @@ label {font:18px/27px Georgia, serif;}
 }
 
 #popupContainer {
-    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-family: 'Antenna Extra Light', Arial, sans-serif;
     font-size: 20px;
 }
 
-.footnote {font-family:arial; font-size:12px; color:#666;}
+.footnote {font-family:"Antenna Extra Light", Arial; font-size:12px; color:#666;}
 /*.leaflet-control-zoom{display:none;}*/
 .header{text-transform: uppercase; font-weight:bold; font-family:Arial; font-size:12px;}
 .leaflet-popup {
@@ -265,13 +265,13 @@ label {font:18px/27px Georgia, serif;}
 }
 .leaflet-popup-content-wrapper{background-color:#000;}
 .leaflet-popup-content{
-    font:bold 34px/40px 'Source Sans Pro Bold', Arial, sans-serif;
+    font:bold 34px/40px 'Antenna Medium', Arial, sans-serif;
     color: white;
     -webkit-font-smoothing: antialiased;
 }
 .leaflet-popup .leaflet-zoom-animated{bottom:0px !important;}
 .leaflet-control-attribution {
-    font-size: 22px !important;
+    font-size: 16px !important;
     height:34px;
     color:#777;
     padding: 4px 9px 0;
@@ -357,7 +357,7 @@ label {font:18px/27px Georgia, serif;}
     padding: 8px 1px;
     margin: 0px 10px 0 0;
     box-shadow: none;
-    font-family: "Source Sans Pro", Arial, sans-serif;
+    font-family: "Antenna Extra Light", Arial, sans-serif;
 }
 
 #geocodifier {
@@ -389,7 +389,7 @@ label {font:18px/27px Georgia, serif;}
 
 .leaflet-control-attribution {
     height: auto;
-    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-family: 'Antenna Extra Light', Arial, sans-serif;
 }
 
 @keyframes blink-animation {
@@ -487,7 +487,7 @@ p.description {
 
 #checkboxes label {
     display: block;
-    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-family: 'Antenna Extra Light', Arial, sans-serif;
     font-size: 14px;
     line-height: 18px;
 }
@@ -507,6 +507,8 @@ p.description {
 .custom_label {
     /*min-width: 200px;*/
     display: inline-block;
+    background-color: rgba(255,255,255,0.8);
+    padding: 20px;
 }
 
 .custom_label .rotate_handle {
@@ -539,13 +541,13 @@ p.description {
 .small_label span, .small_label textarea {
     font-size: 26px;
     line-height: 30px;
-    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-family: 'Antenna Extra Light', Arial, sans-serif;
 }
 
 .medium_label span, .medium_label textarea {
     font-size: 34px;
     line-height: 38px;
-    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-family: 'Antenna Medium', Arial, sans-serif;
 }
 
 .text-label textarea:focus {
