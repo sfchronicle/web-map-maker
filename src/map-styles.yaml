@@ -706,8 +706,8 @@ textures:
 
 sources:
     nextzen:
-        type: MVT
-        url: https://{s}.tiles.nextzen.org/tilezen/vector/v1/256/all/{z}/{x}/{y}.mvt
+        type: GeoJSON
+        url: https://{s}.tiles.nextzen.org/tilezen/vector/v1/256/all/{z}/{x}/{y}.json
         url_params:
             api_key: global.sdk_mapzen_api_key
         url_subdomains: [a,b,c,d]
