@@ -289,7 +289,7 @@ global:
     road_color:                         '#dad1bc' # ∆
     minor_road:                         '#ded4bf' # ∆
     road_text:                          '#000' # ∆
-    road_text_minor:                    '#666' # ∆
+    road_text_minor:                    '#000' # ∆ #wagstaff
     rail_line:                          '#cccecf' # ∆
     runway:                             '#cccecf' # ∆
     aeroway:                            '#dbdddf' # ∆
@@ -1616,8 +1616,8 @@ layers:
                             visible: global.labels_visible_minor_roads
                             font:
                                 fill: global.road_text_minor
-                                size: [[13, 26px], [15, 28px]]
-                                stroke: { color: global.text_stroke, width: 4 }
+                                size: [[12, 16px],[15, 20px]] #wagstaff
+                                stroke: { color: global.text_stroke, width: 3px }
         minor_road:
             filter: { kind: minor_road, not: { kind_detail: service }, $zoom: { min: 13 } }
             draw:
@@ -2901,7 +2901,7 @@ layers:
                         text:
                             font:
                                 size: [[8,30px],[10,32px],[12,36px]]
-                                stroke: { color: global.background, width: 2 }
+                                stroke: { color: global.text_stroke, width: 2 }
                     text-blend-order:
                         priority: 6
                         font:
