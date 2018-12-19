@@ -220,6 +220,7 @@ global:
 
     #default land color
     earth_visible:                      true # ∆
+    alt_earth_visible:                  true # ∆
     background:                         '#f5e9d1'
 
     #water
@@ -717,6 +718,14 @@ sources:
         url_subdomains: [a,b,c,d]
         rasters: [normals]
         max_zoom: 16
+    nextzen2:
+        type: GeoJSON
+        url: https://{s}.tiles.nextzen.org/tilezen/vector/v1/256/all/{z}/{x}/{y}.json
+        url_params:
+            api_key: global.sdk_mapzen_api_key
+        url_subdomains: [a,b,c,d]
+        rasters: [normals]
+        max_zoom: 16
     normals: # terrain
         type: Raster
         url: https://elevation-tiles-prod.s3.amazonaws.com/normal/{z}/{x}/{y}.png
@@ -1127,7 +1136,7 @@ layers:
 
     # Basemap styling
     earth:
-        data: { source: nextzen}
+        data: { source: nextzen2}
         draw:
             terrain:
                 visible: false
@@ -1137,6 +1146,19 @@ layers:
                 visible: global.earth_visible
                 order: -1
                 color: global.background
+
+    alt_earth:
+        data: { source: nextzen2}
+        draw:
+            terrain:
+                visible: false
+                order: 0
+                color: global.background
+            polygons:
+                visible: global.alt_earth_visible
+                order: -1
+                color: global.background
+
     water:
         data: { source: nextzen, layer: water }
         filter: { not: { kind: [swimming_pool] } }

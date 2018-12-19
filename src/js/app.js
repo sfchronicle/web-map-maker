@@ -741,7 +741,8 @@ var layers = {
     'borders_visible': ['countries','disputed','states','counties'],
     'landuse_visible': ['airports','beach','cemetery','college','forest','hospital','military','park','prison','resort','school','stadium','wetland'],
     'water_visible': ['ocean','inland_water','swimming_pools'],
-    'earth_visible' : []
+    'earth_visible' : [],
+    'alt_earth_visible' : [],
 }
 
 // add list to html
