@@ -324,12 +324,12 @@ global:
     #label colors
     text_fill:                          '#1e1913'    # ∆
     text_fill_gray:                     '#1e1913' # ∆
-    text_water:                         '#5b7c9a' # ∆
+    text_water:                         '#5b7c9a' # ∆ #controls the color of water POIs, consider changing to black?
     text_stroke:                        '#f5e9d1'    # ∆
     #label fonts
     text_font_family:                   'Antenna'  # ∆
     #multiplier for shield size
-    shield_multiplier:                   3
+    shield_multiplier:                   3 #this isn't being used, but it should be!
 
 
 fonts:
@@ -1917,7 +1917,7 @@ layers:
                                 offset: [0px, -0.5px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: [[6,15px],[8,15px]] #blanchard
+                                    size: [[6,15px],[8,15px]] #blanchard #wagstaff
                                     # [[6,20px],[8,22px]] return global.shield_multiplier
                     width_1char:
                         filter: function() { return (feature.shield_text.length === 1) } #US:I-2char
