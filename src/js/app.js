@@ -1252,6 +1252,10 @@ function downloadVector() {
 
                 //WORKING -- see if we can hide everything in the next step and show the labels to bake out a labels layer
 
+                scene.screenshot({ background: 'transparent' }).then(
+                    // text goes here
+                );
+
             });
         }, 5000);
 
