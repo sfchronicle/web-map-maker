@@ -219,6 +219,7 @@ global:
     light_settings: { type: directional, direction: [1, 1, -.9], diffuse: 0.5, ambient: 0.85 }
 
     #default land color
+    earth_visible:                      true # ∆
     background:                         '#f5e9d1'
 
     #water
@@ -1133,7 +1134,7 @@ layers:
                 order: 0
                 color: global.background
             polygons:
-                visible: true
+                visible: global.earth_visible
                 order: 0
                 color: global.background
     water:
@@ -1145,7 +1146,7 @@ layers:
                 visible: global.water_visible_ocean
                 color: global.water
             lines: #THIS ADDS RULE AROUND OCEANS, LAKES
-                    visible: global.water_visible_OCEAN
+                    visible: global.water_visible_ocean
                     order: function() { return feature.sort_rank; }
                     color: '#d4cbb7'
                     width: [[10,.65px],[11,1px],[12,1.2px],[13,1.5px],[14,1.8px],[15,2.2px],[16,3px],[17,4m]]
