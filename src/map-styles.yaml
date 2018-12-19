@@ -1960,10 +1960,10 @@ layers:
                             cull_from_tile: true
                             visible: global.labels_visible_highway_shields
                             text:
-                                offset: [2px, 0px]
+                                # offset: [1px, 0px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 15px #blanchard
+                                    size: 15px #blanchard #wagstaff
                     width_1char:
                         filter: function() { return (feature.shield_text.length === 1) }
                         draw:
@@ -1978,7 +1978,9 @@ layers:
                         filter: function() { return (feature.shield_text.length === 3) }
                         draw:
                             icons:
-                                # offset: [0px, 1px]
+                                text:
+                                    offset: [2px, 0px] #wagstaff
+                                # offset: [1px, 0px]
                                 size: [[6,[44px,36px]],[8,[44px,34px]]]
                     width_4char:
                         filter: function() { return (feature.shield_text.length === 4) }
@@ -2006,7 +2008,7 @@ layers:
                                 offset: [0px, 0px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 15px #blanchard
+                                    size: 15px #blanchard #wagstaff
                     motorway:
                         filter: { kind_detail: [motorway], $zoom: [7,8] }
                         draw:
@@ -2064,7 +2066,7 @@ layers:
                                 offset: [0px, -1px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 15px #blanchard
+                                    size: 15px #blanchard #wagstaff
                     width_1char:
                         filter: function() { return (feature.shield_text.length === 1) }
                         draw:
