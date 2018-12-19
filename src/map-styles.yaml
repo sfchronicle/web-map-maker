@@ -3404,7 +3404,7 @@ layers:
                     icons:
                         sprite: function() { return feature.kind; }
                         sprite_default: generic
-                        visible: global.icon_visible_poi_landuse
+                        visible: global.labels_visible_points_of_interest
                         priority: 43
                         text:
                             visible: global.labels_visible_points_of_interest
