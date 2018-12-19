@@ -1135,7 +1135,7 @@ layers:
                 color: global.background
             polygons:
                 visible: global.earth_visible
-                order: 0
+                order: -1
                 color: global.background
     water:
         data: { source: nextzen, layer: water }
