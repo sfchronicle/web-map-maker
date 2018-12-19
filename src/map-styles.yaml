@@ -1710,7 +1710,7 @@ layers:
 
         shields:
             filter:
-                $zoom: { min: 6 }
+                $zoom: { min: 10 } # wagstaff
                 any:
                     - shield_text: true    # some roads don't have shield text, deal with that later
                     - all:
@@ -1900,6 +1900,8 @@ layers:
             # Now for the good stuff
             legit-shields:
                 filter: { shield_text: true }
+
+
                 # US Interstate roads
                 US-I:
                     filter:
@@ -1915,7 +1917,7 @@ layers:
                                 offset: [0px, -0.5px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: [[6,4px],[8,4px]] #blanchard
+                                    size: [[6,15px],[8,15px]] #blanchard
                                     # [[6,20px],[8,22px]] return global.shield_multiplier
                     width_1char:
                         filter: function() { return (feature.shield_text.length === 1) } #US:I-2char
@@ -1958,10 +1960,10 @@ layers:
                             cull_from_tile: true
                             visible: global.labels_visible_highway_shields
                             text:
-                                offset: [0px, -2px]
+                                offset: [2px, 0px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 10px #blanchard
+                                    size: 15px #blanchard
                     width_1char:
                         filter: function() { return (feature.shield_text.length === 1) }
                         draw:
@@ -1977,7 +1979,7 @@ layers:
                         draw:
                             icons:
                                 # offset: [0px, 1px]
-                                size: [52px,52px]
+                                size: [[6,[44px,36px]],[8,[44px,34px]]]
                     width_4char:
                         filter: function() { return (feature.shield_text.length === 4) }
                         draw:
@@ -2004,7 +2006,7 @@ layers:
                                 offset: [0px, 0px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 10px #blanchard
+                                    size: 15px #blanchard
                     motorway:
                         filter: { kind_detail: [motorway], $zoom: [7,8] }
                         draw:
@@ -2062,7 +2064,7 @@ layers:
                                 offset: [0px, -1px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 10px #blanchard
+                                    size: 15px #blanchard
                     width_1char:
                         filter: function() { return (feature.shield_text.length === 1) }
                         draw:
