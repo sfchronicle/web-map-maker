@@ -518,7 +518,6 @@ textures:
             natural_forest: [550, 210, 38, 38]
             nature_reserve: [550, 210, 38, 38]
             conservation: [550, 210, 38, 38]
-            protected_area: [550, 210, 38, 38]
             grass: [550, 210, 38, 38]
             fountain: [368, 126, 38, 38]
             fuel: [458, 210, 38, 38]
@@ -4369,7 +4368,6 @@ layers:
                     lines:
                         visible: false
                         color: global.landuse_farm
-                        order: 500
                         width: 0.5m
                         order: 1
         wetland:
