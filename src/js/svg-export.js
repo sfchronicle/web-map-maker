@@ -538,6 +538,14 @@ function writeSVGFile(mapObject) {
                     console.log('adding ' + dataK)
                     let oneDataKind = reformedJson[dataK];
                     let g = svg.append('g')
+
+                    // THIS WORKS, JUST NEED TO APPEND THE RIGHT TEXT IN THE RIGHT PLACE
+                    // var sometext = g.append('text');
+                    // sometext.attr('transform', 'matrix(1 0 0 1 100 100)');
+                    // sometext.attr('fill', 'black');
+                    // sometext.attr('font-size', '200');
+                    // sometext.text('heyooooooooo');
+
                     g.attr('id',dataK)
 
                     for(let subKinds in oneDataKind) {
@@ -996,8 +1004,6 @@ function getLineWidth(feature) {
     var lineWidth = '2px';
     for (var i = 0; i < feature.draw.lines.width.length; i++) {
         // if closeWidth match and not meters
-        console.log(closestWidth + " closestWidth");
-        console.log()
         if (feature.draw.lines.width[i][0] === closestWidth && feature.draw.lines.width[i][1].indexOf('px') != -1) {
             lineWidth = feature.draw.lines.width[i][1];
         }
