@@ -1720,6 +1720,8 @@ layers:
             draw:
                 icons:
                     # you need to match any custom shield to the vector tile `network` values
+                    # WAGSTAFF NOTE: This size controls ALL shield sizes except the global values in config.yaml
+                    size: [[10,[30px,25px]],[13,[40px,34px]]] #wagstaff
                     sprite: |
                         function() {
                             if( feature.shield_text ) {
@@ -1758,7 +1760,8 @@ layers:
                         font:
                             family: global.text_font_family
                             fill: global.road_text_minor
-                            size: 20px
+                            # WAGSTAFF NOTE: This size controls ALL shield text sizes
+                            size: [[10,12px],[13,18px]] #wagstaff
 
             default_priority_highway:
                 filter:
@@ -1820,9 +1823,9 @@ layers:
                             return (feature.ref.length === 1)
                         }
                     }
-                draw:
-                    icons:
-                        size: [[6,[34px,34px]],[8,[34px,34px]]]
+                # draw:
+                #     icons:
+                #         size: [[10,[20px,20px]],[13,[34px,34px]]]
             width_2char:
                 filter: |
                     function() {
@@ -1832,9 +1835,9 @@ layers:
                             return (feature.ref.length === 2)
                         }
                     }
-                draw:
-                    icons:
-                        size: [[6,[44px,34px]],[8,[44px,34px]]]
+                # draw:
+                #     icons:
+                #         size: [[6,[44px,34px]],[8,[44px,34px]]]
             width_3char:
                 filter: |
                     function() {
@@ -1846,7 +1849,7 @@ layers:
                     }
                 draw:
                     icons:
-                        size: [[6,[54px,34px]],[8,[54px,34px]]]
+                        size: global.3_width_shields #wagstaff
             width_4char:
                 filter: |
                     function() {
@@ -1858,7 +1861,7 @@ layers:
                     }
                 draw:
                     icons:
-                        size: [[6,[70px,34px]],[8,[70px,34px]]]
+                        size: global.4_width_shields #wagstaff
                 # London sucks
                 early:
                     filter: { $zoom: { max: 14 } }
@@ -1876,7 +1879,7 @@ layers:
                     }
                 draw:
                     icons:
-                        size: [[6,[80px,34px]],[8,[80px,34px]]]
+                        size: global.5_width_shields #wagstaff
                 # London sucks
                 early:
                     filter: { $zoom: { max: 14 } }
@@ -1916,35 +1919,34 @@ layers:
                                 offset: [0px, -0.5px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: [[6,15px],[8,15px]] #blanchard #wagstaff
+                                    # size: [[6,15px],[8,15px]] #blanchard #wagstaff
                                     # [[6,20px],[8,22px]] return global.shield_multiplier
                     width_1char:
                         filter: function() { return (feature.shield_text.length === 1) } #US:I-2char
-                        draw:
-                            icons:
-                                size: [[6,[36px,32px]],[8,[38px,34px]]] #width, height
+                        # draw:
+                        #     icons:
+                        #         size: [[6,[36px,32px]],[8,[38px,34px]]] #width, height
                     width_2char:
                         filter: function() { return (feature.shield_text.length === 2) }
-                        draw:
-                            icons:
-                                offset: [4px, 0px]
-                                size: [[6,[48px,38px]],[8,[50px,38px]]]
+                        # draw:
+                        #     icons:
+                        #         offset: [4px, 0px]
+                        #         size: [[6,[48px,38px]],[8,[50px,38px]]]
                     width_3char:
                         filter: function() { return (feature.shield_text.length === 3) }
                         draw:
                             icons:
-                                offset: [0px, -1px]
-                                size: [[6,[60px,36px]],[8,[60px,38px]]]
+                                size: global.3_width_shields #wagstaff
                     width_4char:
                         filter: function() { return (feature.shield_text.length === 4) }
                         draw:
                             icons:
-                                size: [[6,[34px,34px]],[8,[36px,38px]]]
+                                size: global.4_width_shields #wagstaff
                     width_5char:
                         filter: function() { return (feature.shield_text.length === 5) }
                         draw:
                             icons:
-                                size: [[6,[34px,34px]],[8,[36px,38px]]]
+                                size: global.5_width_shields #wagstaff
                 # US Federal Routes
                 US-US:
                     filter:
@@ -1962,35 +1964,32 @@ layers:
                                 # offset: [1px, 0px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 15px #blanchard #wagstaff
+                                    # size: 15px #blanchard #wagstaff
                     width_1char:
                         filter: function() { return (feature.shield_text.length === 1) }
-                        draw:
-                            icons:
-                                size: [[6,[36px,32px]],[8,[38px,34px]]]
+                        # draw:
+                        #     icons:
+                        #         size: [[6,[36px,32px]],[8,[38px,34px]]]
                     width_2char:
                         filter: function() { return (feature.shield_text.length === 2) }
-                        draw:
-                            icons:
-                                size: [[6,[44px,36px]],[8,[44px,34px]]]
+                        # draw:
+                        #     icons:
+                        #         size: [[6,[44px,36px]],[8,[44px,34px]]]
                     width_3char:
                         filter: function() { return (feature.shield_text.length === 3) }
                         draw:
                             icons:
-                                text:
-                                    offset: [2px, 0px] #wagstaff
-                                # offset: [1px, 0px]
-                                size: [[6,[44px,36px]],[8,[44px,34px]]]
+                                size: global.3_width_shields #wagstaff
                     width_4char:
                         filter: function() { return (feature.shield_text.length === 4) }
                         draw:
                             icons:
-                                size: [[6,[25px,17px]],[13,[29px,19px]],[15,[39px,25px]]]
+                                size: global.4_width_shields #wagstaff
                     width_5char:
                         filter: function() { return (feature.shield_text.length === 5) }
                         draw:
                             icons:
-                                size: [[6,[27px,17px]],[13,[30px,19px]],[15,[41px,25px]]]
+                                size: global.5_width_shields #wagstaff
                 # US State Routes
                 US-CA:
                     # Match California state highways: `US:CA`
@@ -2007,7 +2006,7 @@ layers:
                                 offset: [0px, 0px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 15px #blanchard #wagstaff
+                                    # size: 15px #blanchard #wagstaff
                     motorway:
                         filter: { kind_detail: [motorway], $zoom: [7,8] }
                         draw:
@@ -2025,29 +2024,29 @@ layers:
                                 visible: global.labels_visible_highway_shields
                     width_1char:
                         filter: function() { return (feature.shield_text.length === 1) }
-                        draw:
-                            icons:
-                                size: [[6,[36px,32px]],[8,[38px,34px]]]
+                        # draw:
+                        #     icons:
+                        #         size: [[6,[36px,32px]],[8,[38px,34px]]]
                     width_2char:
                         filter: function() { return (feature.shield_text.length === 2) }
-                        draw:
-                            icons:
-                                size: [[6,[44px,36px]],[8,[44px,34px]]]
+                        # draw:
+                        #     icons:
+                        #         size: [[6,[44px,36px]],[8,[44px,34px]]]
                     width_3char:
                         filter: function() { return (feature.shield_text.length === 3) }
                         draw:
                             icons:
-                                size: [[6,[52px,32px]],[8,[54px,35px]]]
+                                size: global.3_width_shields #wagstaff
                     width_4char:
                         filter: function() { return (feature.shield_text.length === 4) }
                         draw:
                             icons:
-                                size: [[6,[24px,18px]],[13,[26px,20px]],[15,[31px,23px]]]
+                                size: global.4_width_shields #wagstaff
                     width_5char:
                         filter: function() { return (feature.shield_text.length === 5) }
                         draw:
                             icons:
-                                size: [[6,[25px,18px]],[13,[27px,20px]],[15,[32px,23px]]]
+                                size: global.5_width_shields #wagstaff
                 US-NY:
                     # Match New York state highways: `US:NY`
                     filter: |
