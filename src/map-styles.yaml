@@ -219,14 +219,16 @@ global:
     light_settings: { type: directional, direction: [1, 1, -.9], diffuse: 0.5, ambient: 0.85 }
 
     #default land color
-    background:                         '#f3eddc'
+    earth_visible:                      true # ∆
+    background:                         '#f5e9d1'
 
     #water
     water_visible_ocean:                true # ∆
     water_visible_inland_water:         true # ∆
     water_visible_swimming_pools:       false # ∆
+    water_outline:                      'c8c0ae' #BLANCHARD
     #water Color
-    water:                              '#B3E6FF' # ∆
+    water:                              '#b1d6f1' # ∆
 
     #landuse
     landuse_style:                      polygons # ∆
@@ -245,20 +247,20 @@ global:
     landuse_visible_stadium:            true # ?? NOT WORKING ??  should also be adjusted to say Stadium, Ski trails
     landuse_visible_wetland:            true # ∆
     #landuse colors
-    landuse_beach:                      '#F8F4E1'
-    landuse_airports:                   '#eff0ef'
+    landuse_beach:                      '#fff1d0'
+    landuse_airports:                   '#e0ddd8'
     landuse_cemetery:                   '#E4E4D5'
-    landuse_college:                    '#F2F0E7'
-    landuse_school:                     '#F2F0E7'
-    # - &forest                         '#E7F1CA'
-    landuse_hospital:                   '#E2EDEF'
-    landuse_military:                   '#eff0ef'
-    landuse_park:                       '#cbe4ba'
-    landuse_farm:                       '#F5FBE7'
-    # - &prison                         '#eff0ef'
-    landuse_theme_park:                 '#F9F3D6'
-    landuse_stadium:                    '#F9F3D6'
-    landuse_wetland:                    '#E1E9DB'
+    landuse_college:                    '#dadbd8'
+    landuse_school:                     '#dadbd8'
+    # - &forest                         '#c8dbca'
+    landuse_hospital:                   '#ded6c7'
+    landuse_military:                   '#ded6c7' #blanchard
+    landuse_park:                       '#d0e0d2' #blanchard
+    landuse_farm:                       '#cddbc1'
+    # - &prison                         '#cdcfc5'
+    landuse_theme_park:                 '#ded6c7'
+    landuse_stadium:                    '#cdcfc5'
+    landuse_wetland:                    '#D0E4E7' #blanchard
 
     #borders
     borders_visible_countries:          true # ∆
@@ -266,9 +268,9 @@ global:
     borders_visible_states:             true # ∆
     borders_visible_counties:           false # ∆
     #border colors:
-    nation_boundary:                    '#a7a8ab' # ∆
-    state_boundary:                     '#827676' # ∆
-    county_boundary:                    '#a39a96' # ∆
+    nation_boundary:                    '#c8c0ae' # ∆
+    state_boundary:                     '#c8c0ae' # ∆
+    county_boundary:                    '#e6d9bd' # ∆
 
     #roads/transit
     roads_visible_highways:             true  # ∆
@@ -282,10 +284,12 @@ global:
     transit_visible:                    false   # ∆
     rail_visible:                       true   # ∆
     #road/transit colors
-    road_color:                         '#a6a6a6' # ∆
-    minor_road:                         '#cccecf' # ∆
+    highway_color:                      '#c4bcaa' # ∆
+    tunnel_color:                       '#c4bcaa' # ∆
+    road_color:                         '#dad1bc' # ∆
+    minor_road:                         '#ded4bf' # ∆
     road_text:                          '#000' # ∆
-    road_text_minor:                    '#666' # ∆
+    road_text_minor:                    '#000' # ∆ #wagstaff
     rail_line:                          '#cccecf' # ∆
     runway:                             '#cccecf' # ∆
     aeroway:                            '#dbdddf' # ∆
@@ -294,8 +298,8 @@ global:
     #structures
     buildings_visible:                  false # ∆
     buildings_border_visible:           false # ∆
-    buildings:                          '#f7f9fc'
-    building_outline:                   '#888' #
+    buildings:                          '#e8dec7'
+    building_outline:                   'f5e9d1' #
     city_wall:                          [0.682,0.682,0.682] # these need addressing
     dam:                                [0.827,0.808,0.780] # these need addressing
 
@@ -318,14 +322,14 @@ global:
     labels_visible_address:             false # ∆ saved for possible future inclusion
     labels_visible_airport_gate:        false # not used but saving for later
     #label colors
-    text_fill:                          '#000'    # ∆
-    text_fill_gray:                     '#474747' # ∆
-    text_water:                         '#5b7c9a' # ∆
-    text_stroke:                        '#fff'    # ∆
+    text_fill:                          '#1e1913'    # ∆
+    text_fill_gray:                     '#1e1913' # ∆
+    text_water:                         '#5b7c9a' # ∆ #controls the color of water POIs, consider changing to black?
+    text_stroke:                        '#f5e9d1'    # ∆
     #label fonts
     text_font_family:                   'Antenna'  # ∆
     #multiplier for shield size
-    shield_multiplier:                   30
+    shield_multiplier:                   3 #this isn't being used, but it should be!
 
 
 fonts:
@@ -514,7 +518,6 @@ textures:
             natural_forest: [550, 210, 38, 38]
             nature_reserve: [550, 210, 38, 38]
             conservation: [550, 210, 38, 38]
-            protected_area: [550, 210, 38, 38]
             grass: [550, 210, 38, 38]
             fountain: [368, 126, 38, 38]
             fuel: [458, 210, 38, 38]
@@ -713,6 +716,14 @@ sources:
         url_subdomains: [a,b,c,d]
         rasters: [normals]
         max_zoom: 16
+    nextzen_backup: # This is sadly required because the above layer creates some bald spots by itself
+        type: GeoJSON
+        url: https://{s}.tiles.nextzen.org/tilezen/vector/v1/256/all/{z}/{x}/{y}.json
+        url_params:
+            api_key: global.sdk_mapzen_api_key
+        url_subdomains: [a,b,c,d]
+        rasters: [normals]
+        max_zoom: 16
     normals: # terrain
         type: Raster
         url: https://elevation-tiles-prod.s3.amazonaws.com/normal/{z}/{x}/{y}.png
@@ -771,7 +782,7 @@ styles:
         #dash_background_color: red
     long-dash:
         base: lines
-        dash: [10,1]
+        dash: [4,1.5]
     terrain:
         base: polygons
         lighting: false
@@ -1123,16 +1134,17 @@ layers:
 
     # Basemap styling
     earth:
-        data: { source: nextzen}
+        data: { source: nextzen_backup}
         draw:
             terrain:
                 visible: false
                 order: 0
                 color: global.background
             polygons:
-                visible: true
-                order: 0
+                visible: global.earth_visible
+                order: -1
                 color: global.background
+
     water:
         data: { source: nextzen, layer: water }
         filter: { not: { kind: [swimming_pool] } }
@@ -1141,6 +1153,11 @@ layers:
                 order: function() { return feature.sort_rank; }
                 visible: global.water_visible_ocean
                 color: global.water
+            lines: #THIS ADDS RULE AROUND OCEANS, LAKES
+                    visible: global.water_visible_ocean
+                    order: function() { return feature.sort_rank; }
+                    color: '#d4cbb7'
+                    width: [[10,.65px],[11,1px],[12,1.2px],[13,1.5px],[14,1.8px],[15,2.2px],[16,3px],[17,4m]]
         later:
             filter: { $zoom: { min: 12 } }
             draw:
@@ -1367,8 +1384,8 @@ layers:
             draw:
                 lines:
                     visible: global.roads_visible_highways
-                    color: global.road_color
-                    width: [[9, 2px], [10, 3px], [12, 4px],[13, 6.6px],[16, 10px], [17, 20m]]
+                    color: global.highway_color
+                    width: [[9, 1.2px], [10, 1.7px], [12, 3px],[13, 3.6px],[16, 5px], [17, 10m]]
                     cap: round
                     join: round
             link:
@@ -1377,7 +1394,7 @@ layers:
                     lines:
                         visible: global.roads_visible_highway_ramps
                         color: global.road_color
-                        width: [[10, 0px], [11, 1px], [12, 1px], [13, 2px], [14, 4px], [17, 4m]]
+                        width: [[10, 0px], [11, 1px], [12, 1px], [13, 2px], [14, 4px], [17, 10m]]
                 early_link:
                     filter: { $zoom: { max: 15 } }
                     draw:
@@ -1400,9 +1417,11 @@ layers:
                 draw:
                     lines:
                         cap: [[14,butt],[15,butt]]
-                        color: global.minor_road
+                        color: global.tunnel_color
+                        style: dashed-lines
+                        width: [[9, 1.2px], [10, 1.7px], [12, 3px],[13, 3.6px],[16, 5px], [17, 10m]]
                         outline:
-                            color: global.road_color
+                            color: global.tunnel_color
             highway_bridge:
                 filter: { is_bridge: true }
                 draw:
@@ -1418,21 +1437,21 @@ layers:
                 lines:
                     visible: global.roads_visible_major
                     color: global.road_color
-                    width: [[8, 0.5px], [10, 0.5px], [11, 0.8px], [12, 1px], [14, 2.6px], [16, 6m]]
+                    width: [[8, 1px], [10, 2px], [11, 2px], [12, 2px], [14, 4px], [16, 8m]]
             trunk_primary:
                 filter: { kind_detail: [trunk, primary] }
                 draw:
                     lines:
                         visible: global.roads_visible_major
                         color: global.road_color
-                        width: [[8, 0.5px], [10, 0.5px], [11, 0.8px], [12, 1px], [14, 2.6px], [16, 6m]]
+                        width: [[8, 1px], [10, 2px], [11, 2px], [12, 2px], [14, 4px], [16, 8m]]
                 routes:
                     filter: { ref: true }
                     draw:
                         lines:
                             visible: global.roads_visible_major
                             color: global.road_color
-                            width: [[8, 1px], [10, 1px], [11, 1.5px], [12, 2.5px], [14, 6px], [16, 6m]]
+                            width: [[8, 1px], [10, 2px], [11, 2px], [12, 2px], [14, 4px], [16, 8m]]
                     tunnel:
                         filter: { is_tunnel: true, $zoom: { min: 13 } }
                         draw:
@@ -1596,15 +1615,15 @@ layers:
                             visible: global.labels_visible_minor_roads
                             font:
                                 fill: global.road_text_minor
-                                size: [[13, 26px], [15, 28px]]
-                                stroke: { color: global.text_stroke, width: 4 }
+                                size: [[12, 16px],[15, 20px]] #wagstaff
+                                stroke: { color: global.text_stroke, width: 3px }
         minor_road:
             filter: { kind: minor_road, not: { kind_detail: service }, $zoom: { min: 13 } }
             draw:
                 lines:
                     visible: global.roads_visible_minor
                     color: global.minor_road
-                    width: [[13, 0.3px], [14, 0.6px], [15, 1.8px], [16, 3m]]
+                    width: [[8, 1px], [10, 1px], [11, 1px], [12, 1px], [14, 2px], [16, 5m]]
             early:
                 filter: { $zoom: { max: 14 } }
                 draw:
@@ -1658,7 +1677,7 @@ layers:
                 lines:
                     visible: global.roads_visible_service
                     color: global.minor_road
-                    width: [[16, 1m], [17, 1.5m]]
+                    width: [[8, 1px], [10, .5px], [11, .7px], [12, 1px], [14, 1px], [16, 2m]]
             early:
                 filter: { $zoom: { max: 16 } }
                 draw:
@@ -1690,7 +1709,7 @@ layers:
 
         shields:
             filter:
-                $zoom: { min: 6 }
+                $zoom: { min: 10 } # wagstaff
                 any:
                     - shield_text: true    # some roads don't have shield text, deal with that later
                     - all:
@@ -1701,6 +1720,8 @@ layers:
             draw:
                 icons:
                     # you need to match any custom shield to the vector tile `network` values
+                    # WAGSTAFF NOTE: This size controls ALL shield sizes except the global values in config.yaml
+                    size: [[10,[30px,25px]],[13,[40px,34px]]] #wagstaff
                     sprite: |
                         function() {
                             if( feature.shield_text ) {
@@ -1739,7 +1760,8 @@ layers:
                         font:
                             family: global.text_font_family
                             fill: global.road_text_minor
-                            size: 20px
+                            # WAGSTAFF NOTE: This size controls ALL shield text sizes
+                            size: [[10,12px],[13,18px]] #wagstaff
 
             default_priority_highway:
                 filter:
@@ -1801,9 +1823,6 @@ layers:
                             return (feature.ref.length === 1)
                         }
                     }
-                draw:
-                    icons:
-                        size: [[6,[34px,34px]],[8,[34px,34px]]]
             width_2char:
                 filter: |
                     function() {
@@ -1813,9 +1832,6 @@ layers:
                             return (feature.ref.length === 2)
                         }
                     }
-                draw:
-                    icons:
-                        size: [[6,[44px,34px]],[8,[44px,34px]]]
             width_3char:
                 filter: |
                     function() {
@@ -1827,7 +1843,7 @@ layers:
                     }
                 draw:
                     icons:
-                        size: [[6,[54px,34px]],[8,[54px,34px]]]
+                        size: global.3_width_shields #wagstaff
             width_4char:
                 filter: |
                     function() {
@@ -1839,7 +1855,7 @@ layers:
                     }
                 draw:
                     icons:
-                        size: [[6,[70px,34px]],[8,[70px,34px]]]
+                        size: global.4_width_shields #wagstaff
                 # London sucks
                 early:
                     filter: { $zoom: { max: 14 } }
@@ -1857,7 +1873,7 @@ layers:
                     }
                 draw:
                     icons:
-                        size: [[6,[80px,34px]],[8,[80px,34px]]]
+                        size: global.5_width_shields #wagstaff
                 # London sucks
                 early:
                     filter: { $zoom: { max: 14 } }
@@ -1880,6 +1896,8 @@ layers:
             # Now for the good stuff
             legit-shields:
                 filter: { shield_text: true }
+
+
                 # US Interstate roads
                 US-I:
                     filter:
@@ -1895,35 +1913,9 @@ layers:
                                 offset: [0px, -0.5px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: [[6,20px],[8,22px]]
+                                    # size: [[6,15px],[8,15px]] #blanchard #wagstaff
                                     # [[6,20px],[8,22px]] return global.shield_multiplier
-                    width_1char:
-                        filter: function() { return (feature.shield_text.length === 1) } #US:I-2char
-                        draw:
-                            icons:
-                                size: [[6,[36px,32px]],[8,[38px,34px]]] #width, height
-                    width_2char:
-                        filter: function() { return (feature.shield_text.length === 2) }
-                        draw:
-                            icons:
-                                offset: [4px, 0px]
-                                size: [[6,[48px,38px]],[8,[50px,38px]]]
-                    width_3char:
-                        filter: function() { return (feature.shield_text.length === 3) }
-                        draw:
-                            icons:
-                                offset: [0px, -1px]
-                                size: [[6,[60px,36px]],[8,[60px,38px]]]
-                    width_4char:
-                        filter: function() { return (feature.shield_text.length === 4) }
-                        draw:
-                            icons:
-                                size: [[6,[34px,34px]],[8,[36px,38px]]]
-                    width_5char:
-                        filter: function() { return (feature.shield_text.length === 5) }
-                        draw:
-                            icons:
-                                size: [[6,[34px,34px]],[8,[36px,38px]]]
+
                 # US Federal Routes
                 US-US:
                     filter:
@@ -1938,36 +1930,11 @@ layers:
                             cull_from_tile: true
                             visible: global.labels_visible_highway_shields
                             text:
-                                offset: [0px, -2px]
+                                # offset: [1px, 0px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 20px
-                    width_1char:
-                        filter: function() { return (feature.shield_text.length === 1) }
-                        draw:
-                            icons:
-                                size: [[6,[36px,32px]],[8,[38px,34px]]]
-                    width_2char:
-                        filter: function() { return (feature.shield_text.length === 2) }
-                        draw:
-                            icons:
-                                size: [[6,[44px,36px]],[8,[44px,34px]]]
-                    width_3char:
-                        filter: function() { return (feature.shield_text.length === 3) }
-                        draw:
-                            icons:
-                                # offset: [0px, 1px]
-                                size: [[6,[52px,32px]],[8,[54px,35px]],[18,[54px,35px]]]
-                    width_4char:
-                        filter: function() { return (feature.shield_text.length === 4) }
-                        draw:
-                            icons:
-                                size: [[6,[25px,17px]],[13,[29px,19px]],[15,[39px,25px]]]
-                    width_5char:
-                        filter: function() { return (feature.shield_text.length === 5) }
-                        draw:
-                            icons:
-                                size: [[6,[27px,17px]],[13,[30px,19px]],[15,[41px,25px]]]
+                                    # size: 15px #blanchard #wagstaff
+            
                 # US State Routes
                 US-CA:
                     # Match California state highways: `US:CA`
@@ -1984,7 +1951,7 @@ layers:
                                 offset: [0px, 0px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 20px
+                                    # size: 15px #blanchard #wagstaff
                     motorway:
                         filter: { kind_detail: [motorway], $zoom: [7,8] }
                         draw:
@@ -2000,31 +1967,7 @@ layers:
                         draw:
                             icons:
                                 visible: global.labels_visible_highway_shields
-                    width_1char:
-                        filter: function() { return (feature.shield_text.length === 1) }
-                        draw:
-                            icons:
-                                size: [[6,[36px,32px]],[8,[38px,34px]]]
-                    width_2char:
-                        filter: function() { return (feature.shield_text.length === 2) }
-                        draw:
-                            icons:
-                                size: [[6,[44px,36px]],[8,[44px,34px]]]
-                    width_3char:
-                        filter: function() { return (feature.shield_text.length === 3) }
-                        draw:
-                            icons:
-                                size: [[6,[52px,32px]],[8,[54px,35px]]]
-                    width_4char:
-                        filter: function() { return (feature.shield_text.length === 4) }
-                        draw:
-                            icons:
-                                size: [[6,[24px,18px]],[13,[26px,20px]],[15,[31px,23px]]]
-                    width_5char:
-                        filter: function() { return (feature.shield_text.length === 5) }
-                        draw:
-                            icons:
-                                size: [[6,[25px,18px]],[13,[27px,20px]],[15,[32px,23px]]]
+                    
                 US-NY:
                     # Match New York state highways: `US:NY`
                     filter: |
@@ -2039,35 +1982,9 @@ layers:
                                 function() { return ( 'US:NY-' + feature.shield_text.length + 'char'); }
                             visible: global.labels_visible_highway_shields
                             text:
-                                offset: [0px, -1px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 20px
-                    width_1char:
-                        filter: function() { return (feature.shield_text.length === 1) }
-                        draw:
-                            icons:
-                                size: [[6,[36px,32px]],[8,[38px,34px]]]
-                    width_2char:
-                        filter: function() { return (feature.shield_text.length === 2) }
-                        draw:
-                            icons:
-                                size: [[6,[44px,36px]],[8,[44px,34px]]]
-                    width_3char:
-                        filter: function() { return (feature.shield_text.length === 3) }
-                        draw:
-                            icons:
-                                size: [[6,[52px,32px]],[8,[54px,35px]]]
-                    width_4char:
-                        filter: function() { return (feature.shield_text.length === 4) }
-                        draw:
-                            icons:
-                                size: [[6,[21px,17px]],[13,[24px,19px]],[15,[29px,22px]]]
-                    width_5char:
-                        filter: function() { return (feature.shield_text.length === 5) }
-                        draw:
-                            icons:
-                                size: [[6,[22px,17px]],[13,[25px,19px]],[15,[30px,22px]]]
+                   
                 US-PA:
                     # Match Pennsylvania state highways
                     filter: |
@@ -2084,32 +2001,7 @@ layers:
                                 offset: [0px, 1px]
                                 font:
                                     fill: global.road_text_minor
-                                    size: 20px
-                    width_1char:
-                        filter: function() { return (feature.shield_text.length === 1) }
-                        draw:
-                            icons:
-                                size: [[6,[36px,32px]],[8,[38px,34px]]]
-                    width_2char:
-                        filter: function() { return (feature.shield_text.length === 2) }
-                        draw:
-                            icons:
-                                size: [[6,[44px,36px]],[8,[44px,34px]]]
-                    width_3char:
-                        filter: function() { return (feature.shield_text.length === 3) }
-                        draw:
-                            icons:
-                                size: [[6,[52px,32px]],[8,[54px,35px]]]
-                    width_4char:
-                        filter: function() { return (feature.shield_text.length === 4) }
-                        draw:
-                            icons:
-                                size: [[6,[22px,17px]],[13,[25px,19px]],[15,[30x,22px]]]
-                    width_5char:
-                        filter: function() { return (feature.shield_text.length === 5) }
-                        draw:
-                            icons:
-                                size: [[6,[24px,17px]],[13,[27px,19px]],[15,[32px,22px]]]
+                    
                 # USA County Routes
                 US-counties:
                     filter: |
@@ -2127,32 +2019,8 @@ layers:
                             text:
                                 font:
                                     fill: global.road_text_minor
-                                    size: 20px
-                    width_1char:
-                        filter: function() { return (feature.shield_text.length === 1) }
-                        draw:
-                            icons:
-                                size: [[6,[36px,32px]],[8,[38px,34px]]]
-                    width_2char:
-                        filter: function() { return (feature.shield_text.length === 2) }
-                        draw:
-                            icons:
-                                size: [[6,[44px,36px]],[8,[44px,34px]]]
-                    width_3char:
-                        filter: function() { return (feature.shield_text.length === 3) }
-                        draw:
-                            icons:
-                                size: [[6,[52px,32px]],[8,[54px,35px]]]
-                    width_4char:
-                        filter: function() { return (feature.shield_text.length === 4) }
-                        draw:
-                            icons:
-                                size: [[6,[25px,14px]],[13,[28px,15px]],[15,[34px,18px]]]
-                    width_5char:
-                        filter: function() { return (feature.shield_text.length === 5) }
-                        draw:
-                            icons:
-                                size: [[6,[30px,14px]],[13,[33px,15px]],[15,[40px,18px]]]
+                                    size: 10px #blanchard
+                    
         path:
             filter:
                 all:
@@ -2441,7 +2309,7 @@ layers:
                 filter: { maritime_boundary: true }
                 draw:
                     lines:
-                        visible: false
+                        visible: true
             # labels-z9-up:
             #     filter: { name: true, $zoom: { min: 9 }, not: { maritime_boundary: true }, kind: [country] }
             #     draw:
@@ -2557,7 +2425,7 @@ layers:
                     visible: global.borders_visible_counties
                     order: 101
                     color: global.county_boundary
-                    width: [[6,1px],[8,1.5px]]
+                    width: [[6,1px],[7,1.5px],[10,2.25px]]
 
             water:
                 filter: { maritime_boundary: true }
@@ -2877,7 +2745,7 @@ layers:
                         text:
                             font:
                                 size: [[8,30px],[10,32px],[12,36px]]
-                                stroke: { color: global.background, width: 2 }
+                                stroke: { color: global.text_stroke, width: 2 }
                     text-blend-order:
                         priority: 6
                         font:
@@ -3384,7 +3252,7 @@ layers:
                     icons:
                         sprite: function() { return feature.kind; }
                         sprite_default: generic
-                        visible: global.icon_visible_poi_landuse
+                        visible: global.labels_visible_points_of_interest
                         priority: 43
                         text:
                             visible: global.labels_visible_points_of_interest
@@ -4079,7 +3947,7 @@ layers:
                     polygons:
                         visible: global.landuse_visible_park
                         style: global.landuse_style
-                        color: '#dfe5c3'
+                        color: '#c5d8c6' #blanchard
                         order: 2
                 us_national_park:
                     # yosemite national park, death valley national park, grand canyon national park
@@ -4091,7 +3959,7 @@ layers:
                             polygons:
                                 visible: global.landuse_visible_park
                                 style: global.landuse_style
-                                color: '#dfe5c3'
+                                color: '#d5dfcf' #blanchard
                                 order: 2
             conservation:
                 filter:
@@ -4345,7 +4213,6 @@ layers:
                     lines:
                         visible: false
                         color: global.landuse_farm
-                        order: 500
                         width: 0.5m
                         order: 1
         wetland:

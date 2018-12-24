@@ -1,3 +1,6 @@
+
+var mapStyles = window.mapStyles;
+
 window.addEventListener('unhandledrejection', event => {
     // Prevent error output on the console:
     event.preventDefault();
@@ -535,6 +538,14 @@ function writeSVGFile(mapObject) {
                     console.log('adding ' + dataK)
                     let oneDataKind = reformedJson[dataK];
                     let g = svg.append('g')
+
+                    // THIS WORKS, JUST NEED TO APPEND THE RIGHT TEXT IN THE RIGHT PLACE
+                    // var sometext = g.append('text');
+                    // sometext.attr('transform', 'matrix(1 0 0 1 100 100)');
+                    // sometext.attr('fill', 'black');
+                    // sometext.attr('font-size', '200');
+                    // sometext.text('heyooooooooo');
+
                     g.attr('id',dataK)
 
                     for(let subKinds in oneDataKind) {
@@ -687,9 +698,6 @@ function writeSVGFile(mapObject) {
                 $('#layergroup').append($("svg g#buildings"));
                 $('#layergroup').append($("svg g#jsonupload"));
 
-
-
-
                 /* restyle anything in groups if size not print/columns */
                 // pulling from scene.config
 
@@ -699,7 +707,7 @@ function writeSVGFile(mapObject) {
                 $("#landuse #pier path").appendTo("#pierland");
 
                 d3.selectAll('#pierland path')
-                    .attr('fill','#fff')
+                    .attr('fill',mapStyles.global.background)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
 
@@ -708,109 +716,109 @@ function writeSVGFile(mapObject) {
                 // roads
                 // widths based on L.A. Times print styles
                 d3.selectAll('#highway path')
-                    .attr('stroke','#a7a9ac')
+                    .attr('stroke',mapStyles.global.highway_color)
                     .attr('stroke-width','2px');
                 d3.selectAll('#highwaylink path')
-                    .attr('stroke','#bcbec0')
+                    .attr('stroke',mapStyles.global.road_color)
                     .attr('stroke-width','1px');
                 d3.selectAll('#majorroad path')
-                    .attr('stroke','#bcbec0')
+                    .attr('stroke',mapStyles.global.road_color)
                     .attr('stroke-width','1px');
                 d3.selectAll('#minorroad path')
-                    .attr('stroke','#bcbec0')
+                    .attr('stroke',mapStyles.global.minor_road)
                     .attr('stroke-width','0.65px');
                 d3.selectAll('#service path')
-                    .attr('stroke','#d1d3d4')
+                    .attr('stroke',mapStyles.global.minor_road)
                     .attr('stroke-width','0.65px');
 
                 d3.selectAll('#path path')
-                    .attr('stroke','#CDCFD0')
+                    .attr('stroke',mapStyles.global.rail_line)
                     .attr('stroke-width','0.65px')
                     .attr('stroke-dasharray','1,1');
                 d3.selectAll('#track path')
-                    .attr('stroke','#CDCFD0')
+                    .attr('stroke',mapStyles.global.rail_line)
                     .attr('stroke-width','1px')
                     .attr('stroke-dasharray','1,1');
                 d3.selectAll('#rail path')
-                    .attr('stroke','#CDCFD0')
+                    .attr('stroke',mapStyles.global.rail_line)
                     .attr('stroke-width','0.65px');
 
                 d3.selectAll('#aerialway path')
-                    .attr('stroke','#CDCFD0')
+                    .attr('stroke',mapStyles.global.aeroway)
                     .attr('stroke-width','0.65px');
 
                 d3.selectAll('#ferry path')
-                    .attr('stroke','#8bb1cd')
+                    .attr('stroke',mapStyles.global.ferry_route)
                     .attr('stroke-width','0.75px')
                     .attr('stroke-dasharray','1,1');
 
                 d3.selectAll('#etc path')
-                    .attr('stroke','#CDCFD0')
+                    .attr('stroke',mapStyles.global.rail_line)
                     .attr('stroke-width','0.65px');
 
                 d3.selectAll('#runway path')
-                    .attr('stroke','#CDCFD0')
+                    .attr('stroke',mapStyles.global.runway)
                     .attr('stroke-width','2px');
 
                 d3.selectAll('#taxiway path')
-                    .attr('stroke','#CDCFD0')
+                    .attr('stroke',mapStyles.global.rail_line)
                     .attr('stroke-width','0.65px');
 
                 d3.selectAll('#roads #pier path')
-                    .attr('stroke','#fff')
+                    .attr('stroke',mapStyles.global.rail_line)
                     .attr('stroke-width','1px');
 
                 // landuse styles
                 d3.selectAll('#university path')
-                    .attr('fill','#F2F0E7')
+                    .attr('fill',mapStyles.global.landuse_college)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 d3.selectAll('#stadium path')
-                    .attr('fill','#F9F3D6')
+                    .attr('fill',mapStyles.global.landuse_stadium)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 d3.selectAll('#school path')
-                    .attr('fill','#F2F0E7')
+                    .attr('fill',mapStyles.global.landuse_school)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 d3.selectAll('#resort path')
-                    .attr('fill','#F9F3D6')
+                    .attr('fill',mapStyles.global.landuse_park)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 d3.selectAll('#park path')
-                    .attr('fill','#E7F1CA')
+                    .attr('fill',mapStyles.global.landuse_park)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 d3.selectAll('#wetland path')
-                    .attr('fill','#e1e9db')
+                    .attr('fill',mapStyles.global.landuse_wetland)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 d3.selectAll('#military path')
-                    .attr('fill','#eff0ef')
+                    .attr('fill',mapStyles.global.landuse_military)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 d3.selectAll('#prison path')
-                    .attr('fill','#eff0ef')
+                    .attr('fill',mapStyles.global.landuse_stadium)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 d3.selectAll('#hospital path')
-                    .attr('fill','#E2EDEF')
+                    .attr('fill',mapStyles.global.landuse_hospital)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 d3.selectAll('#forest path')
-                    .attr('fill','#E7F1CA')
+                    .attr('fill',mapStyles.global.landuse_park)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 d3.selectAll('#cemetery path')
-                    .attr('fill','#E4E4D5')
+                    .attr('fill',mapStyles.global.landuse_cemetery)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 d3.selectAll('#beach path')
-                    .attr('fill','#F8F4E1')
+                    .attr('fill',mapStyles.global.landuse_beach)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 d3.selectAll('#airport path')
-                    .attr('fill','#eff0ef')
+                    .attr('fill',mapStyles.global.landuse_airports)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 d3.selectAll('#etc path')
@@ -821,34 +829,34 @@ function writeSVGFile(mapObject) {
                 // water
                 console.log('collecting #water path')
                 d3.selectAll('#water path')
-                    .attr('fill','#A9D7F4')
+                    .attr('fill',mapStyles.global.water)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 console.log('collecting #ocean path')
                 d3.selectAll('#ocean path')
-                    .attr('fill','#A9D7F4')
+                    .attr('fill',mapStyles.global.water)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 console.log('collecting #riverbank path')
                 d3.selectAll('#riverbank path')
-                    .attr('fill','#A9D7F4')
+                    .attr('fill',mapStyles.global.water)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
                 console.log('collecting #river path')
                 d3.selectAll('#river path')
                     .attr('fill','none')
-                    .attr('stroke','#abd7f3')
+                    .attr('stroke',mapStyles.global.water)
                     .attr('stroke-width','1px');
                 console.log('collecting #stream path')
                 d3.selectAll('#stream path')
                     .attr('fill','none')
-                    .attr('stroke','#A9D7F4')
+                    .attr('stroke',mapStyles.global.water)
                     .attr('stroke-width','0.35px');
 
                 // earth
                 console.log('collecting #earth #earthland path')
                 d3.selectAll('#earth #earthland path')
-                    .attr('fill','#fff')
+                    .attr('fill',mapStyles.global.background)
                     .attr('stroke','#fff')
                     .attr('stroke-width','0px');
 
@@ -996,8 +1004,6 @@ function getLineWidth(feature) {
     var lineWidth = '2px';
     for (var i = 0; i < feature.draw.lines.width.length; i++) {
         // if closeWidth match and not meters
-        console.log(closestWidth + " closestWidth");
-        console.log()
         if (feature.draw.lines.width[i][0] === closestWidth && feature.draw.lines.width[i][1].indexOf('px') != -1) {
             lineWidth = feature.draw.lines.width[i][1];
         }

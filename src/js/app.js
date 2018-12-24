@@ -740,7 +740,8 @@ var layers = {
     'roads_visible': ['highways','highway_ramps','major','minor','service','ferry_route','taxi_and_runways','paths'],
     'borders_visible': ['countries','disputed','states','counties'],
     'landuse_visible': ['airports','beach','cemetery','college','forest','hospital','military','park','prison','resort','school','stadium','wetland'],
-    'water_visible': ['ocean','inland_water','swimming_pools']
+    'water_visible': ['ocean','inland_water','swimming_pools'],
+    'earth_visible' : [],
 }
 
 // add list to html
@@ -778,8 +779,8 @@ scene.subscribe({
 $("#sources").attr("checked",true);
 // rail too
 $("#rail_visible").attr("checked",true);
-
-
+// also earth
+$("#earth_visible").attr("checked",true);
 
 
 // set what layers are visible based on zoom
@@ -1256,7 +1257,6 @@ function downloadVector() {
     });
 
     // if terrain's visible, grab the blob!
-    console.log(mapOptions);
     var terrainBlob;
     if (mapOptions['layers_visible'].indexOf("terrain_visible") > -1) {
         console.log("you want the terrain!");
@@ -1276,9 +1276,6 @@ function downloadVector() {
                 onLabels.push(idname); // push into list to reactivate later
                 $(this).attr("checked", false); // uncheck
                 scene.config.global[idname] = false; // turn off
-
-
-
             }
         });
 
@@ -1286,8 +1283,7 @@ function downloadVector() {
         scene.updateConfig(); // update scene
         // map done loading
 
-
-        // wait one second
+        // wait 5 seconds
         setTimeout(function() {
             scene.screenshot().then(function(screenshot) {
 
@@ -1311,8 +1307,14 @@ function downloadVector() {
                 // slam onto vector file
                 goVector();
 
+                //WORKING -- see if we can hide everything in the next step and show the labels to bake out a labels layer
+
+                scene.screenshot({ background: 'transparent' }).then(
+                    // text goes here
+                );
+
             });
-        }, 1000);
+        }, 5000);
 
     } else {
         // if no terrain selected
