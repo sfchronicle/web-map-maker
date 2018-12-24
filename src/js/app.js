@@ -1043,7 +1043,7 @@ function addCustomLabel(size) {
         html: '<div class="custom_label '+size+'_label" id="custom_label'+thisID+'"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
         className: 'text-label ui-resizable',
         id: 'custom_label'+thisID
-        })});
+    })});
 
     // add label to the array of all labels
     customLabels.push(customLabel);
@@ -1051,6 +1051,63 @@ function addCustomLabel(size) {
     // add label to map
     customLabel.addTo(map);
 }
+
+// Passes click on to actual combo box
+// Needed because the menu is built off the box size, but the actual hitbox is too big
+function clickCombo() {
+    $('.ui-selectmenu-button.ui-button').click();
+}
+
+function chooseIcon(e) {
+    console.log(e);
+}
+
+$( function() {
+    $.widget( "custom.iconselectmenu", $.ui.selectmenu, {
+    _renderItem: function( ul, item ) {
+
+            var li = $( "<li>" ),
+            wrapper = $( "<div>", { 
+                html: "<p class='icon-name'>"+item.label+"</p>"
+            });
+
+            if ( item.disabled ) {
+                li.addClass( "ui-state-disabled" );
+            }
+
+            $( "<span>", {
+                style: item.element.attr( "data-style" ),
+                "class": "ui-icon " + item.element.attr( "data-class" )
+            }).appendTo( wrapper );
+
+            return li.append( wrapper ).appendTo( ul );
+        }
+    });
+
+    $(".image-combobox .icons").iconselectmenu({
+        select: function( event, ui ) {
+            console.log($(ui.item.element).data("name"));
+
+            var thisID = lastId(customLabels) + 1;
+
+            // text marker test
+            var customLabel = L.marker(map.getCenter(), {draggable: true, icon: L.divIcon ({
+                iconSize: [0, 0],
+                iconAnchor: [0, 0],
+                html: '<div class="custom_label medium_label" id="custom_label'+thisID+'"><span class="display_text">'+$(ui.item.element).data("name")+'</span><textarea class="text_input" maxlength="100"></textarea><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
+                className: 'text-label ui-resizable',
+                id: 'custom_label'+thisID
+            })});
+
+            // add label to the array of all labels
+            customLabels.push(customLabel);
+
+            // add label to map
+            customLabel.addTo(map);
+        }
+    })
+    .iconselectmenu("menuWidget").addClass("ui-menu-icons avatar");
+});
 
 // edit text to swap in input and out
 $('body').on('click', '.display_text', function() {
