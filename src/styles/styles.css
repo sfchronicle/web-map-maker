@@ -736,8 +736,8 @@ input[type=range]:focus::-ms-fill-upper {
   z-index: 400;
 }
 
-.draggable_container {
-  transform-origin: 100% 100% 0px;
+.draggable img {
+  width: 60px; /* Default icon width */
 }
 
 

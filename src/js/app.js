@@ -5,8 +5,6 @@
 var windowWidth = document.documentElement.clientWidth;
 var windowHeight = document.documentElement.clientHeight;
 
-
-
 /* QUERY STRINGS
 
 These are all optional, but can be added at the back end of the URL to express them in MapMaker.
@@ -37,6 +35,26 @@ function getQueryVariable(variable) {
     }
 }
 
+// Builds icon list with this
+var iconData = {
+    "icons": [
+        {
+            "name":"Fire location",
+            "file":"icon-fire.png",
+        },
+        {
+            "name":"BART Station",
+            "file":"icon-bart.png"
+        }
+    ]
+}
+
+var selectList = "";
+for (var q = 0; q < iconData.icons.length; q++){
+    selectList += '<option data-image="images/'+iconData.icons[q].file+'" data-class="avatar" data-style="background-image: url(images/'+iconData.icons[q].file+');">'+iconData.icons[q].name+'</option>';
+}
+// Update combobox
+$(".image-combobox .icons").html(selectList);
 
 // check if config options are done
 var attribution;
@@ -1042,7 +1060,7 @@ function addCustomLabel(size) {
     var customLabel = L.marker(map.getCenter(), {draggable: true, icon: L.divIcon ({
         iconSize: [0, 0],
         iconAnchor: [0, 0],
-        html: '<div class="custom_label '+size+'_label" id="custom_label'+thisID+'"><div class="draggable_container"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea></div><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-expand resize_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
+        html: '<div class="draggable custom_label '+size+'_label" id="custom_label'+thisID+'"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-expand resize_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
         className: 'text-label ui-resizable',
         id: 'custom_label'+thisID
     })});
@@ -1088,7 +1106,6 @@ $( function() {
 
     $(".image-combobox .icons").iconselectmenu({
         select: function( event, ui ) {
-            console.log($(ui.item.element).data("name"));
 
             var thisID = lastId(customLabels) + 1;
 
@@ -1096,7 +1113,7 @@ $( function() {
             var customLabel = L.marker(map.getCenter(), {draggable: true, icon: L.divIcon ({
                 iconSize: [0, 0],
                 iconAnchor: [0, 0],
-                html: '<div class="" id="custom_label'+thisID+'"><div class="draggable_container"><img src="images/icon-bart.png" /><span class="display_text">'+$(ui.item.element).data("name")+'</span><textarea class="text_input" maxlength="100"></textarea></div><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-expand resize_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
+                html: '<div class="draggable" id="custom_label'+thisID+'"><img src="'+$(ui.item.element).data("image")+'" /><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-expand resize_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
                 className: 'text-label ui-resizable',
                 id: 'custom_label'+thisID
             })});
@@ -1205,70 +1222,52 @@ $('body').on('mousedown', '.rotate_handle', function(e) {
     });
 });
 
-// $('body').on('mousedown', '.resize_handle', function(e) {
-//     // get the right custom label from object
-//     for (var i = 0; i < customLabels.length; i++) {
-//         if (customLabels[i].options.icon.options.id == $(this).parent()[0].id) {
-//             var customLabel = customLabels[i]
-//         }
-//     }
+$('body').on('mousedown', '.resize_handle', function(e) {
+    // get the right custom label from object
+    for (var i = 0; i < customLabels.length; i++) {
+        if (customLabels[i].options.icon.options.id == $(this).parent()[0].id) {
+            var customLabel = customLabels[i]
+        }
+    }
 
-//     // temporarily freeze dragging
-//     customLabel.dragging.disable();
-//     map.dragging.disable();
+    // temporarily freeze dragging
+    customLabel.dragging.disable();
+    map.dragging.disable();
 
-//     var target = $(this).parent().find(".draggable_container"),
-//         originX = target.offset().left + target.width() / 2,
-//         originY = target.offset().top + target.height() / 2,
-//         dragging = true,
-//         startingDegrees = (typeof target[0].style.transform == 'undefined') ? 0 : target[0].style.transform.substr(7,target[0].style.transform.indexOf('deg')-7),
-//         lastDegrees = 0,
-//         currentDegrees = 0;
+    var target = $(this).parent(),
+        originX = target.offset().left + target.width() / 2,
+        originY = target.offset().top + target.height() / 2,
+        dragging = true,
+        lastDiff = 0,
+        currentDiff = 0;
+        mouseX = e.pageX;
+        mouseY = e.pageY;
 
+    $(document).mousemove(function(e) {
+        var mouseX, mouseY, radians, degrees;
 
-//         mouseX = e.pageX;
-//         mouseY = e.pageY;
-//         radians = Math.atan2(mouseY - originY, mouseX - originX),
-//         startingDegrees = radians * (180 / Math.PI);
+        if (!dragging) {
+            return;
+        }
 
+        mouseX = e.pageX;
+        mouseY = e.pageY;
+        totalDiff = Math.abs(mouseY - originY) + Math.abs(mouseX - originX);
+        currentDiff = totalDiff;
 
-//     $(document).mousemove(function(e) {
-//         var mouseX, mouseY, radians, degrees;
+        // Modify the CSS to boost the target
+        target.find('img').width(totalDiff);
+        target.find('.display_text').css({'font-size': (totalDiff/5)+'px', 'line-height': (totalDiff/4)+'px'});
+    }).mouseup(function() {
+        lastDiff = currentDiff;
+        dragging = false;
 
-//         if (!dragging) {
-//             return;
-//         }
+        // unfreeze dragging
+        customLabel.dragging.enable();
+        map.dragging.enable();
 
-//         mouseX = e.pageX;
-//         mouseY = e.pageY;
-//         radians = Math.atan2(mouseY - originY, mouseX - originX),
-//         degrees = radians * (180 / Math.PI) - startingDegrees + lastDegrees;
-
-//         currentDegrees = degrees;
-
-//         // update to lock onto 0, 90, 270 if it rounds to it
-//         if (degrees <= 5 && degrees >= -5) {
-//             degrees = 0;
-//         } else if (degrees >= -275 && degrees <= -265) {
-//             degrees = -270;
-//         }
-
-//         // Make sure it's only positive numbers
-//         degrees = Math.abs(degrees);
-//         degrees *= 0.1;
-//         target.css('-webkit-transform', 'scale(' + degrees + ')');
-//         target.css('-ms-transform', 'scale(' + degrees + ')');
-//         target.css('transform', 'scale(' + degrees + ')');
-//     }).mouseup(function() {
-//         lastDegrees = currentDegrees;
-//         dragging = false;
-
-//         // unfreeze dragging
-//         customLabel.dragging.enable();
-//         map.dragging.enable();
-
-//     });
-// });
+    });
+});
 
 function getDatetime() {
     // get current datetime

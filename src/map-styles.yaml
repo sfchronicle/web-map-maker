@@ -241,7 +241,7 @@ global:
     landuse_visible_hospital:           true # ∆
     landuse_visible_military:           true # ∆
     landuse_visible_park:               true # ∆
-    landuse_visible_pier:               true # ∆
+    landuse_visible_pier:               false # ∆ #wagstaff -- these are still visible, but they don't need their own separate fill
     landuse_visible_prison:             true # ???
     landuse_visible_resort:             true # ∆
     landuse_visible_stadium:            true # ?? NOT WORKING ??  should also be adjusted to say Stadium, Ski trails
