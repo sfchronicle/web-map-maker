@@ -340,10 +340,8 @@ $("#map_holder").resize(function(){
     if (selectedSize.substr(0,3) != "col") {
         if (mapWidth + 'x' + mapHeight == '1920x1080') {
             document.getElementById('preset_sizes').value = 'video';
-        } else if (mapWidth + 'x' + mapHeight == '1300x730') {
+        } else if (mapWidth + 'x' + mapHeight == '810x530') {
             document.getElementById('preset_sizes').value = 'web_large';
-        } else if (mapWidth + 'x' + mapHeight == '400x450') {
-            document.getElementById('preset_sizes').value = 'web_small';
         } else {
             document.getElementById('preset_sizes').value = 'custom';
         }
@@ -537,11 +535,8 @@ if (option.value == 'video') {
     $("#map_holder").width(1930); // these have to be 10 over to compensate for resizable
     $("#map_holder").height(1080);
 } else if (option.value == 'web_large') {
-    $("#map_holder").width(1310);
-    $("#map_holder").height(730);
-} else if (option.value == 'web_small') {
-    $("#map_holder").width(410);
-    $("#map_holder").height(450);
+    $("#map_holder").width(810);
+    $("#map_holder").height(530);
 } else if (option.value == 'col1') {
     $("#map_holder").width(340);
     $("#map_holder").height(700);
@@ -555,8 +550,8 @@ if (option.value == 'video') {
     $("#map_holder").width(1438);
     $("#map_holder").height(700);
 } else if (option.value == 'twitter') {
-    $("#map_holder").width(810);
-    $("#map_holder").height(400);
+    $("#map_holder").width(1210);
+    $("#map_holder").height(630);
 }
 
 
