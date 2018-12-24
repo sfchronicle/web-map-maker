@@ -740,4 +740,7 @@ input[type=range]:focus::-ms-fill-upper {
   width: 60px; /* Default icon width */
 }
 
+.draggable .text_input {
+  resize: none;
+}
 
