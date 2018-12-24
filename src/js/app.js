@@ -1095,7 +1095,7 @@ $( function() {
             var customLabel = L.marker(map.getCenter(), {draggable: true, icon: L.divIcon ({
                 iconSize: [0, 0],
                 iconAnchor: [0, 0],
-                html: '<div class="custom_label medium_label" id="custom_label'+thisID+'"><span class="display_text">'+$(ui.item.element).data("name")+'</span><textarea class="text_input" maxlength="100"></textarea><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
+                html: '<div class="custom_label medium_label" id="custom_label'+thisID+'"><img src="images/icon-bart.png" /><span class="display_text">'+$(ui.item.element).data("name")+'</span><textarea class="text_input" maxlength="100"></textarea><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
                 className: 'text-label ui-resizable',
                 id: 'custom_label'+thisID
             })});
