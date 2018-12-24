@@ -368,6 +368,7 @@ function downloadIMG() {
         // hide map controls buttons
         $("#map").css("background","none");
         $(".rotate_handle").hide();
+        $(".resize_handle").hide();
         $(".remove_label").hide();
 
         // basemap
@@ -437,10 +438,10 @@ function downloadIMG() {
 
                     onrendered: function(canvas) {
 
-
                         ctx.drawImage(canvas,0,0, mapSize[0], mapSize[1]);
                         $("#map").css("background","#ddd"); // bring back map's background
                         $(".rotate_handle").show();
+                        $(".resize_handle").show();
                         $(".remove_label").show();
 
                         // create an off-screen anchor tag
@@ -1041,7 +1042,7 @@ function addCustomLabel(size) {
     var customLabel = L.marker(map.getCenter(), {draggable: true, icon: L.divIcon ({
         iconSize: [0, 0],
         iconAnchor: [0, 0],
-        html: '<div class="custom_label '+size+'_label" id="custom_label'+thisID+'"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
+        html: '<div class="custom_label '+size+'_label" id="custom_label'+thisID+'"><div class="draggable_container"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea></div><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-expand resize_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
         className: 'text-label ui-resizable',
         id: 'custom_label'+thisID
     })});
@@ -1095,7 +1096,7 @@ $( function() {
             var customLabel = L.marker(map.getCenter(), {draggable: true, icon: L.divIcon ({
                 iconSize: [0, 0],
                 iconAnchor: [0, 0],
-                html: '<div class="custom_label medium_label" id="custom_label'+thisID+'"><img src="images/icon-bart.png" /><span class="display_text">'+$(ui.item.element).data("name")+'</span><textarea class="text_input" maxlength="100"></textarea><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
+                html: '<div class="" id="custom_label'+thisID+'"><div class="draggable_container"><img src="images/icon-bart.png" /><span class="display_text">'+$(ui.item.element).data("name")+'</span><textarea class="text_input" maxlength="100"></textarea></div><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-expand resize_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
                 className: 'text-label ui-resizable',
                 id: 'custom_label'+thisID
             })});
@@ -1203,6 +1204,71 @@ $('body').on('mousedown', '.rotate_handle', function(e) {
 
     });
 });
+
+// $('body').on('mousedown', '.resize_handle', function(e) {
+//     // get the right custom label from object
+//     for (var i = 0; i < customLabels.length; i++) {
+//         if (customLabels[i].options.icon.options.id == $(this).parent()[0].id) {
+//             var customLabel = customLabels[i]
+//         }
+//     }
+
+//     // temporarily freeze dragging
+//     customLabel.dragging.disable();
+//     map.dragging.disable();
+
+//     var target = $(this).parent().find(".draggable_container"),
+//         originX = target.offset().left + target.width() / 2,
+//         originY = target.offset().top + target.height() / 2,
+//         dragging = true,
+//         startingDegrees = (typeof target[0].style.transform == 'undefined') ? 0 : target[0].style.transform.substr(7,target[0].style.transform.indexOf('deg')-7),
+//         lastDegrees = 0,
+//         currentDegrees = 0;
+
+
+//         mouseX = e.pageX;
+//         mouseY = e.pageY;
+//         radians = Math.atan2(mouseY - originY, mouseX - originX),
+//         startingDegrees = radians * (180 / Math.PI);
+
+
+//     $(document).mousemove(function(e) {
+//         var mouseX, mouseY, radians, degrees;
+
+//         if (!dragging) {
+//             return;
+//         }
+
+//         mouseX = e.pageX;
+//         mouseY = e.pageY;
+//         radians = Math.atan2(mouseY - originY, mouseX - originX),
+//         degrees = radians * (180 / Math.PI) - startingDegrees + lastDegrees;
+
+//         currentDegrees = degrees;
+
+//         // update to lock onto 0, 90, 270 if it rounds to it
+//         if (degrees <= 5 && degrees >= -5) {
+//             degrees = 0;
+//         } else if (degrees >= -275 && degrees <= -265) {
+//             degrees = -270;
+//         }
+
+//         // Make sure it's only positive numbers
+//         degrees = Math.abs(degrees);
+//         degrees *= 0.1;
+//         target.css('-webkit-transform', 'scale(' + degrees + ')');
+//         target.css('-ms-transform', 'scale(' + degrees + ')');
+//         target.css('transform', 'scale(' + degrees + ')');
+//     }).mouseup(function() {
+//         lastDegrees = currentDegrees;
+//         dragging = false;
+
+//         // unfreeze dragging
+//         customLabel.dragging.enable();
+//         map.dragging.enable();
+
+//     });
+// });
 
 function getDatetime() {
     // get current datetime
