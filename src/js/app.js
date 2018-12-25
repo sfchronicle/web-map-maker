@@ -43,7 +43,7 @@ var iconData = {
             "file":"icon-fire.png",
         },
         {
-            "name":"BART Station",
+            "name":"BART station",
             "file":"icon-bart.png"
         }
     ]
@@ -383,9 +383,7 @@ function downloadIMG() {
 
         // hide map controls buttons
         $("#map").css("background","none");
-        $(".rotate_handle").hide();
-        $(".resize_handle").hide();
-        $(".remove_label").hide();
+        $(".m_handle").hide();
 
         // basemap
         scene.screenshot().then(function(screenshot) {
@@ -456,9 +454,7 @@ function downloadIMG() {
 
                         ctx.drawImage(canvas,0,0, mapSize[0], mapSize[1]);
                         $("#map").css("background","#ddd"); // bring back map's background
-                        $(".rotate_handle").show();
-                        $(".resize_handle").show();
-                        $(".remove_label").show();
+                        $(".m_handle").show();
 
                         // create an off-screen anchor tag
                         var lnk = document.createElement('a'),
@@ -1055,7 +1051,7 @@ function addCustomLabel(size) {
     var customLabel = L.marker(map.getCenter(), {draggable: true, icon: L.divIcon ({
         iconSize: [0, 0],
         iconAnchor: [0, 0],
-        html: '<div class="draggable custom_label '+size+'_label" id="custom_label'+thisID+'"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-expand resize_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
+        html: '<div class="draggable custom_label '+size+'_label" id="custom_label'+thisID+'"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea><i class="fa fa-repeat m_handle rotate_handle" aria-hidden="true"></i> <i class="fa fa-expand m_handle resize_handle" aria-hidden="true"></i> <i class="fa fa-comment m_handle tooltip_handle" aria-hidden="true"></i> <i class="fa fa-times m_handle remove_label" aria-hidden="true"></i></div>',
         className: 'text-label ui-resizable',
         id: 'custom_label'+thisID
     })});
@@ -1108,7 +1104,7 @@ $( function() {
             var customLabel = L.marker(map.getCenter(), {draggable: true, icon: L.divIcon ({
                 iconSize: [0, 0],
                 iconAnchor: [0, 0],
-                html: '<div class="draggable" id="custom_label'+thisID+'"><img src="'+$(ui.item.element).data("image")+'" /><i class="fa fa-repeat rotate_handle" aria-hidden="true"></i> <i class="fa fa-expand resize_handle" aria-hidden="true"></i> <i class="fa fa-times remove_label" aria-hidden="true"></i></div>',
+                html: '<div class="draggable" id="custom_label'+thisID+'"><img src="'+$(ui.item.element).data("image")+'" /><i class="fa fa-repeat m_handle rotate_handle" aria-hidden="true"></i> <i class="fa fa-expand m_handle resize_handle" aria-hidden="true"></i> <i class="fa fa-times m_handle remove_label" aria-hidden="true"></i></div>',
                 className: 'text-label ui-resizable',
                 id: 'custom_label'+thisID
             })});
@@ -1262,6 +1258,45 @@ $('body').on('mousedown', '.resize_handle', function(e) {
         map.dragging.enable();
 
     });
+});
+
+$('body').on('mouseup', '.tooltip_handle', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    // If there's no tooltip data, or we're at the max rotation, set to zero and create bottom tip
+    // If it hasn't been defined yet, start at 0
+    if ($(this).data("tooltip") == undefined){
+        $(this).data("tooltip", 0);
+    }
+
+    if ($(this).data("tooltip") == 4){
+        $(this).data("tooltip", 0);
+    } else {
+        // Otherwise, increment
+        $(this).data("tooltip", $(this).data("tooltip") + 1);
+    }
+
+    console.log($(this).parent()[0]);
+    console.log($(this).data("tooltip"));
+
+    // Handle moving the tooltip around the box
+    var tooltipHTML = '<div class="leaflet-popup-tip-container"><div class="leaflet-popup-tip"></div></div>';
+    switch($(this).data("tooltip")){
+        case 0: $(this).parent().find(".leaflet-popup-tip-container").remove(); // Remove any existing tooltips
+            break; 
+        case 1: $(this).parent().append(tooltipHTML); // Add tooltip
+            $(this).parent().find(".leaflet-popup-tip-container").addClass("bottom"); // Add class
+            break; 
+        case 2: $(this).parent().find(".leaflet-popup-tip-container").removeClass("bottom");
+            $(this).parent().find(".leaflet-popup-tip-container").addClass("right"); 
+            break; 
+        case 3: $(this).parent().find(".leaflet-popup-tip-container").removeClass("right"); 
+            $(this).parent().find(".leaflet-popup-tip-container").addClass("top"); 
+            break; 
+        case 4: $(this).parent().find(".leaflet-popup-tip-container").removeClass("top"); 
+            $(this).parent().find(".leaflet-popup-tip-container").addClass("left"); 
+            break; 
+    }
 });
 
 function getDatetime() {

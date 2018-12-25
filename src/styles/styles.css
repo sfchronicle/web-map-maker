@@ -736,11 +736,47 @@ input[type=range]:focus::-ms-fill-upper {
   z-index: 400;
 }
 
+.draggable {
+  display: inline-block;
+  position: relative;
+}
+
+.draggable .fa {
+  font-size: 20px;
+}
+
 .draggable img {
   width: 60px; /* Default icon width */
 }
 
 .draggable .text_input {
   resize: none;
+}
+
+.draggable .leaflet-popup-tip-container {
+  filter: invert(1);
+  opacity: 1;
+}
+
+.draggable .leaflet-popup-tip-container.bottom {
+  bottom: -27px;
+}
+
+.draggable .leaflet-popup-tip-container.right {
+  left: calc(100% + 3px);
+  transform: rotate(270deg);
+  margin-left: 0;
+  top: 50%;
+}
+
+.draggable .leaflet-popup-tip-container.top {
+  top: -27px;
+  transform: rotate(180deg);
+}
+
+.draggable .leaflet-popup-tip-container.left {
+  left: -3px;
+  top: 50%;
+  transform: rotate(90deg);
 }
 
