@@ -385,6 +385,9 @@ function downloadIMG() {
         $("#map").css("background","none");
         $(".m_handle").hide();
 
+        // Shift to make up for weirdness
+        $(".custom_label .display_text").css({"position": "relative", "top": "-0.2em"});
+
         // basemap
         scene.screenshot().then(function(screenshot) {
 
@@ -455,6 +458,8 @@ function downloadIMG() {
                         ctx.drawImage(canvas,0,0, mapSize[0], mapSize[1]);
                         $("#map").css("background","#ddd"); // bring back map's background
                         $(".m_handle").show();
+                        // Put label back down
+                        $(".custom_label .display_text").css({"position": "relative", "top": "0"});
 
                         // create an off-screen anchor tag
                         var lnk = document.createElement('a'),
@@ -1051,7 +1056,7 @@ function addCustomLabel(size) {
     var customLabel = L.marker(map.getCenter(), {draggable: true, icon: L.divIcon ({
         iconSize: [0, 0],
         iconAnchor: [0, 0],
-        html: '<div class="draggable custom_label '+size+'_label" id="custom_label'+thisID+'"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea><i class="fa fa-repeat m_handle rotate_handle" aria-hidden="true"></i> <i class="fa fa-expand m_handle resize_handle" aria-hidden="true"></i> <i class="fa fa-comment m_handle tooltip_handle" aria-hidden="true"></i> <i class="fa fa-times m_handle remove_label" aria-hidden="true"></i></div>',
+        html: '<div class="draggable custom_label '+size+'_label" id="custom_label'+thisID+'"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea><i title="Click+drag to rotate" class="fa fa-repeat m_handle rotate_handle" aria-hidden="true"></i> <i title="Click+drag to resize" class="fa fa-expand m_handle resize_handle" aria-hidden="true"></i> <i title="Click to add tooltip arrow" class="fa fa-comment m_handle tooltip_handle" aria-hidden="true"></i> <i title="Click to invert theme" class="fa fa-lightbulb-o m_handle invert_handle" aria-hidden="true"></i> <i title="Click to remove" class="fa fa-times m_handle remove_label" aria-hidden="true"></i></div>',
         className: 'text-label ui-resizable',
         id: 'custom_label'+thisID
     })});
@@ -1261,8 +1266,6 @@ $('body').on('mousedown', '.resize_handle', function(e) {
 });
 
 $('body').on('mouseup', '.tooltip_handle', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
     // If there's no tooltip data, or we're at the max rotation, set to zero and create bottom tip
     // If it hasn't been defined yet, start at 0
     if ($(this).data("tooltip") == undefined){
@@ -1297,6 +1300,10 @@ $('body').on('mouseup', '.tooltip_handle', function(e) {
             $(this).parent().find(".leaflet-popup-tip-container").addClass("left"); 
             break; 
     }
+});
+
+$('body').on('mouseup', '.invert_handle', function(e) {
+   $(this).closest('.custom_label').toggleClass('black');
 });
 
 function getDatetime() {

@@ -294,8 +294,6 @@ label {font:18px/27px Georgia, serif;}
 .leaflet-popup-tip-container {
     width: 20px;
     height: 27px;
-    margin: 0 0 0 -18px
-    position: relative;
 }
 
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
@@ -308,12 +306,30 @@ label {font:18px/27px Georgia, serif;}
     width: 50px;
     height: 30px;
     margin-left: -9px;
+    /* 
+      IT MAKES ZERO SENSE BUT THESE ARE INVERTED (ONLY ON PREVIEW) 
+      OTHERWISE IT'LL SHOW THE WRONG COLOR (BUT EXPORT CORRECTLY)
+    */
     background: url(../images/popup-tip.png) top left no-repeat;
+    filter: invert(1);
      -webkit-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
-     transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+
+.custom_label.black .leaflet-popup-tip {
+  /* 
+    IT MAKES ZERO SENSE BUT THESE ARE INVERTED (ONLY ON PREVIEW) 
+    OTHERWISE IT'LL SHOW THE WRONG COLOR (BUT EXPORT CORRECTLY)
+  */
+  background: url(../images/popup-tip-black.png) top left no-repeat;
+  filter: invert(1);
+} 
+
+.custom_label.black span.display_text, .custom_label.black textarea.text_input {
+  color: white !important;
 }
 
 .leaflet-popup-content-wrapper {
@@ -507,8 +523,13 @@ p.description {
 .custom_label {
     /*min-width: 200px;*/
     display: inline-block;
-    background-color: rgba(255,255,255,0.8);
-    padding: 20px;
+    background-color: white;
+    padding: 15px;
+}
+
+.custom_label.black {
+    background-color: black;
+    color: white !important;
 }
 
 .custom_label .rotate_handle {
@@ -759,24 +780,33 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .draggable .leaflet-popup-tip-container.bottom {
-  bottom: -27px;
+  bottom: -25px;
 }
 
 .draggable .leaflet-popup-tip-container.right {
   left: calc(100% + 3px);
   transform: rotate(270deg);
   margin-left: 0;
-  top: 50%;
+  top: calc(50% - 5px);
 }
 
 .draggable .leaflet-popup-tip-container.top {
-  top: -27px;
-  transform: rotate(180deg);
+  left: 50%;
+  top: 0;
+  transform: rotate(180deg) translate(0px,25px);
+  margin-left: 0;
 }
 
 .draggable .leaflet-popup-tip-container.left {
-  left: -3px;
-  top: 50%;
-  transform: rotate(90deg);
+  left: 0;
+  top: calc(50% - 5px);
+  transform: rotate(90deg) translate(-15px,20px);
+  margin-left: 0;
+}
+
+.ui-tooltip { 
+  box-shadow: 1px 1px 1px black;
+  font: bold 12px "Antenna Medium", sans-serif;
+  opacity: 0.8;
 }
 
