@@ -16,6 +16,11 @@
 import: config.yaml
 
 global:
+    # SFC presets
+    3_width_shields: [[10,[40px,25px]],[13,[52px,34px]]]
+    4_width_shields: [[10,[50px,25px]],[13,[62px,34px]]]
+    5_width_shields: [[10,[60px,25px]],[13,[72px,34px]]]
+
     #ux/ui
     ux_language: en             # l10n language code, trusting OSM in v0.10 tiles, fixed in v1.0 tiles
     ux_language_fallback: false    # l10n language code, trusting OSM in v0.10 tiles, fixed in v1.0 tiles
