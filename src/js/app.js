@@ -47,8 +47,24 @@ var iconData = {
             "file":"icon-fire.png",
         },
         {
+            "name":"Quake location",
+            "file":"icon-quake.png",
+        },
+        {
             "name":"BART station",
             "file":"icon-bart.png"
+        },
+        {
+            "name":"Train station",
+            "file":"icon-train.png"
+        },
+        {
+            "name":"Airport",
+            "file":"icon-airport.png"
+        },
+        {
+            "name":"Mountain",
+            "file":"icon-mountain.png"
         }
     ]
 }
@@ -162,8 +178,6 @@ var map = L.map('map', {
     closePopupOnClick: false,
     zoomControl: false
 });
-
-
 
 map.attributionControl.setPrefix(attribution+'Nextzen, OpenStreetMap');
 var quietLAlayer = Tangram.leafletLayer({
