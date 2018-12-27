@@ -116,7 +116,7 @@ body {
     float: left;
 }
 
-#map_options #geo_files {
+#popupContainer #geo_files {
     width: 0.1px;
     height: 0.1px;
     opacity: 0;
@@ -757,6 +757,11 @@ input[type=range]:focus::-ms-fill-upper {
   z-index: 400;
 }
 
+.custom_label {
+  /* This is set for the particular size/placeholder language */
+  transform:  translate(-170px, -130px) !important;
+}
+
 .draggable {
   display: inline-block;
   position: relative;
@@ -810,3 +815,14 @@ input[type=range]:focus::-ms-fill-upper {
   opacity: 0.8;
 }
 
+#popupText {
+  display: none;
+}
+
+#preset_sizes {
+  border: 2px solid rgb(181, 181, 181);
+  border-radius: 6px;
+  color: #acacac;
+  height: 34px;
+  margin-top: 3px;
+}

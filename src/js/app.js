@@ -39,6 +39,10 @@ function getQueryVariable(variable) {
 var iconData = {
     "icons": [
         {
+            "name":"Point-of-interest pin",
+            "file":"icon-pin.png"
+        },
+        {
             "name":"Fire location",
             "file":"icon-fire.png",
         },
@@ -384,6 +388,7 @@ function downloadIMG() {
         // hide map controls buttons
         $("#map").css("background","none");
         $(".m_handle").hide();
+        $(".geo-target").hide();
 
         // Shift to make up for weirdness
         $(".custom_label .display_text").css({"position": "relative", "top": "-0.2em"});
@@ -458,6 +463,7 @@ function downloadIMG() {
                         ctx.drawImage(canvas,0,0, mapSize[0], mapSize[1]);
                         $("#map").css("background","#ddd"); // bring back map's background
                         $(".m_handle").show();
+                        $(".geo-target").show();
                         // Put label back down
                         $(".custom_label .display_text").css({"position": "relative", "top": "0"});
 
@@ -659,24 +665,26 @@ if (typeof configOptions !== 'undefined') {
     var geocoder = new BingGeocodifier('geocodifier', {
         key: configOptions.bingAPI,
         onClick: function(item, coords) {
+            // Add a marker at the point
+            var pinIcon = L.icon({
+                iconUrl: 'images/icon-pin.png',
+                iconSize: [49, 49],
+                iconAnchor: [25, 25],
+                className: "title-assignment geo-target", //temp class so title can be assigned
+            });
+            var marker = L.marker(item.geocodePoints[0].coordinates, {icon: pinIcon}).addTo(map);
+            console.log("ITEM",item);
+            // Assign title
+            $(".title-assignment").attr("title", item.name + " — This icon is only here as a guide to line up icons and labels. It will disappear on map export.");
+            $(".title-assignment").removeClass("title-assignment");
+
+            // Move map to location
             map.panTo(item.geocodePoints[0].coordinates);
 
-            // check for popup text
-            var userPopupText = $("#popupText").val();
-
-            // remove any old markers and popups
-            $(".popupMarker").remove();
-            $(".large-popup").remove();
-
-            // add a hidden marker
-            popupMarker = L.circleMarker(item.geocodePoints[0].coordinates,{
-                fillOpacity: 0,
-                opacity: 0,
-                className: 'popupMarker'
-            }).bindPopup(userPopupText,{'className':'large-popup'}).addTo(map);
-            if (userPopupText.length > 0) {
-                popupMarker.openPopup();
-            }
+            // Add a label at this point and give it a pointer
+            map.once("moveend zoomend", function(){
+                addCustomLabel(true);
+            });
         }
     });
 
@@ -1048,7 +1056,7 @@ function lastId(array) {
 // setup object to hold all custom labels
 var customLabels = [];
 
-function addCustomLabel(size) {
+function addCustomLabel(pointer) {
 
     var thisID = lastId(customLabels) + 1;
 
@@ -1056,7 +1064,7 @@ function addCustomLabel(size) {
     var customLabel = L.marker(map.getCenter(), {draggable: true, icon: L.divIcon ({
         iconSize: [0, 0],
         iconAnchor: [0, 0],
-        html: '<div class="draggable custom_label '+size+'_label" id="custom_label'+thisID+'"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea><i title="Click+drag to rotate" class="fa fa-repeat m_handle rotate_handle" aria-hidden="true"></i> <i title="Click+drag to resize" class="fa fa-expand m_handle resize_handle" aria-hidden="true"></i> <i title="Click to add tooltip arrow" class="fa fa-comment m_handle tooltip_handle" aria-hidden="true"></i> <i title="Click to invert theme" class="fa fa-lightbulb-o m_handle invert_handle" aria-hidden="true"></i> <i title="Click to remove" class="fa fa-times m_handle remove_label" aria-hidden="true"></i></div>',
+        html: '<div class="draggable custom_label medium_label" id="custom_label'+thisID+'"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea><i title="Click+drag to rotate" class="fa fa-repeat m_handle rotate_handle" aria-hidden="true"></i> <i title="Click+drag to resize" class="fa fa-expand m_handle resize_handle" aria-hidden="true"></i> <i title="Click to add tooltip arrow" class="fa fa-comment m_handle tooltip_handle" aria-hidden="true"></i> <i title="Click to invert theme" class="fa fa-lightbulb-o m_handle invert_handle" aria-hidden="true"></i> <i title="Click to remove" class="fa fa-times m_handle remove_label" aria-hidden="true"></i></div>',
         className: 'text-label ui-resizable',
         id: 'custom_label'+thisID
     })});
@@ -1066,6 +1074,13 @@ function addCustomLabel(size) {
 
     // add label to map
     customLabel.addTo(map);
+
+    console.log("pointer val", pointer);
+    // if flag for pointer is true, simulate a click
+    if (pointer){
+        $('#custom_label'+thisID+' .tooltip_handle').trigger("mouseup");
+    }
+
 }
 
 // Passes click on to actual combo box
@@ -1109,7 +1124,7 @@ $( function() {
             var customLabel = L.marker(map.getCenter(), {draggable: true, icon: L.divIcon ({
                 iconSize: [0, 0],
                 iconAnchor: [0, 0],
-                html: '<div class="draggable" id="custom_label'+thisID+'"><img src="'+$(ui.item.element).data("image")+'" /><i class="fa fa-repeat m_handle rotate_handle" aria-hidden="true"></i> <i class="fa fa-expand m_handle resize_handle" aria-hidden="true"></i> <i class="fa fa-times m_handle remove_label" aria-hidden="true"></i></div>',
+                html: '<div class="draggable custom_icon" id="custom_label'+thisID+'"><img src="'+$(ui.item.element).data("image")+'" /><i class="fa fa-repeat m_handle rotate_handle" aria-hidden="true"></i> <i class="fa fa-expand m_handle resize_handle" aria-hidden="true"></i> <i class="fa fa-times m_handle remove_label" aria-hidden="true"></i></div>',
                 className: 'text-label ui-resizable',
                 id: 'custom_label'+thisID
             })});
@@ -1154,6 +1169,15 @@ $('body').on('click', '.remove_label', function() {
             customLabels.splice(i, 1); // remove from list
         }
     }
+
+    // close tooltip in case it got stuck
+    $( document ).tooltip( "destroy" );
+    // Re-init
+    $( document ).tooltip({
+        track: true,
+        show: false,
+        hide: false,
+    });
 });
 
 $('body').on('mousedown', '.rotate_handle', function(e) {
@@ -1253,7 +1277,7 @@ $('body').on('mousedown', '.resize_handle', function(e) {
 
         // Modify the CSS to boost the target
         target.find('img').width(totalDiff);
-        target.find('.display_text').css({'font-size': (totalDiff/5)+'px', 'line-height': (totalDiff/4)+'px'});
+        target.find('.display_text, .text_input').css({'font-size': (totalDiff/5)+'px', 'line-height': (totalDiff/4)+'px'});
     }).mouseup(function() {
         lastDiff = currentDiff;
         dragging = false;

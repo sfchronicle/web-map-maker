@@ -43,6 +43,11 @@
         <h1>Web Map Maker<a id="mapmakerVersion" href="https://github.com/datadesk/web-map-maker/releases/tag/2.1.4">v2.1.4</a></h1>
         <div id="popupContainer">
             <input id="popupText" type="text" placeholder="Pointer text" maxlength="40"><div id="geocodifier"></div>
+            <div class="map_option">
+                <input type="file" id="geo_files" name="files[]" accept=".geojson,.json" multiple>
+                <label for="geo_files" class="btn gray">Upload GeoJSON</label>
+                <a id="zoom_to_geojson">Zoom to file</a>
+            </div>
         </div>
 
         <div id="web_blank">
@@ -69,11 +74,6 @@
                 </div>
 
                 <div class="map_option">
-                    <input type="file" id="geo_files" name="files[]" accept=".geojson,.json" multiple>
-                    <label for="geo_files" class="btn gray">Upload GeoJSON</label>
-                    <a id="zoom_to_geojson">Zoom to file</a>
-                </div>
-                <div class="map_option">
                     <form>
                       <div class="multiselect">
                         <div class="selectBox" onclick="showCheckboxes()">
@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="map_option">
-                    <button class='btn gray' onclick='addCustomLabel("medium");'>+label</button>
+                    <button class='btn gray' onclick='addCustomLabel(false);'>+label</button>
                     <div class="image-combobox">
                         <select class="icons"></select>
                         <button id="create-icon" class="btn gray" onclick='clickCombo();'>+icon</button>
