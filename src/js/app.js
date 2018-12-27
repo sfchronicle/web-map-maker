@@ -1170,6 +1170,9 @@ $('body').on('click', '.remove_label', function() {
         }
     }
 
+    // Remove event bindings in case they are still active
+    $(document).off('mousemove mouseup');
+
     // close tooltip in case it got stuck
     $( document ).tooltip( "destroy" );
     // Re-init
@@ -1228,16 +1231,23 @@ $('body').on('mousedown', '.rotate_handle', function(e) {
             degrees = -270;
         }
 
-        target.css('-webkit-transform', 'rotate(' + degrees + 'deg)');
-        target.css('-ms-transform', 'rotate(' + degrees + 'deg)');
-        target.css('transform', 'rotate(' + degrees + 'deg)');
+        target.css('transform', 'rotate(' + degrees + 'deg) translate(-170px, -130px)');
     }).mouseup(function() {
         lastDegrees = currentDegrees;
         dragging = false;
 
         // unfreeze dragging
-        customLabel.dragging.enable();
+        try {
+            customLabel.dragging.enable();
+        } catch (err){
+            // If this can't fire for some reason, log the error
+            console.log(err);
+        }
+        
         map.dragging.enable();
+
+        // Remove event bindings in case they are still active
+        $(document).off('mousemove mouseup');
 
     });
 });
@@ -1285,6 +1295,9 @@ $('body').on('mousedown', '.resize_handle', function(e) {
         // unfreeze dragging
         customLabel.dragging.enable();
         map.dragging.enable();
+
+        // Remove event bindings in case they are still active
+        $(document).off('mousemove mouseup');
 
     });
 });

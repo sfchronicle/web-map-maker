@@ -759,7 +759,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 .custom_label {
   /* This is set for the particular size/placeholder language */
-  transform:  translate(-170px, -130px) !important;
+  transform:  translate(-170px, -130px);
 }
 
 .draggable {
