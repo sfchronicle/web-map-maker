@@ -1,3 +1,4 @@
 .DS_STORE
 src/js/config.js
 config.yaml
+.env

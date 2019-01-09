@@ -382,6 +382,18 @@ function slugify(v){
     return slug;
 }
 
+function sendOnline(e) {
+   var test = prompt("Enter a NewsGate slug to send this map to the file");
+   console.log(test);
+
+   // try sending screenshot to python
+    $.ajax('../api/sendonline', {
+       cache: false,
+       method: 'POST',
+       data: {test: "hi"}
+    });
+}
+
 function downloadIMG() {
     if (!mapLoadAction) {
 
