@@ -52,7 +52,7 @@ global:
 Then you're ready to run the mapmaker. The easiest way is to fire up a simple python server (obviously you'll need python) with this command:
 
 ```sh
-python -m SimpleHTTPServer 8000
+python serve.py
 ```
 
 The app will be hosted at `localhost:8000`.
