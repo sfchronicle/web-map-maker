@@ -383,18 +383,14 @@ function slugify(v){
 }
 
 function sendOnline(e) {
-   var test = prompt("Enter a NewsGate slug to send this map to the file");
-   console.log(test);
+    var slug = prompt("Enter a NewsGate slug to send this map to the file");
 
-   // try sending screenshot to python
-    $.ajax('../api/sendonline', {
-       cache: false,
-       method: 'POST',
-       data: {test: "hi"}
-    });
+    if (slug){
+        downloadIMG(slug+"_og"); // Append _og to identify the Map Maker image in the package
+    }
 }
 
-function downloadIMG() {
+function downloadIMG(onlineSlug) {
     if (!mapLoadAction) {
 
         var canvas = document.getElementById("canvas");
@@ -459,28 +455,7 @@ function downloadIMG() {
                     };
                     img.src = url;
                 }
-
-
-
-                // if there's a popup
-                if ($(".large-popup").length > 0) {
-                    // swap out negative left with a margin-left for a moment
-                    // this breaks html2canvas
-                    var popupLeft = +$(".large-popup").css("left").slice(0,$(".large-popup").css("left").length-2);
-                    var popupBottom = +$(".large-popup").css("bottom").slice(0,$(".large-popup").css("bottom").length-2);
-
-                    var popupTranslate = $(".large-popup").css("transform");
-                    var transNumStart = popupTranslate.indexOf("("),
-                        transNumEnd = popupTranslate.indexOf(")");
-                    var transNums = popupTranslate.substring(transNumStart+1,transNumEnd).split(",");
-                    var transleft = +transNums[4];
-                    var transRight = +transNums[5];
-                    // update values because translate3d causes problems with Tangram
-                    $(".large-popup").css("transform","");
-                    $(".large-popup").css("left",popupLeft+transleft+"px"); // translate left
-                    $(".large-popup").css("bottom",popupBottom-transRight+"px"); // translate right
-                }
-
+                
                 // any popup text layers and other html like the source and ruler
                 html2canvas($("#map"), {
 
@@ -493,48 +468,63 @@ function downloadIMG() {
                         // Put label back down
                         $(".custom_label .display_text").css({"position": "relative", "top": "0"});
 
-                        // create an off-screen anchor tag
-                        var lnk = document.createElement('a'),
-                            e;
+                        // try sending screenshot to python
+                        if (onlineSlug){
+                            var canvas = document.getElementById("canvas");
+                            var dataURL = canvas.toDataURL('image/png');
 
-                        // get current datetime
-                        var currentdate = new Date();
-
-                        var hours = (currentdate.getHours() > 12) ? currentdate.getHours() + 12 : currentdate.getHours();
-                        hours = (hours.toString().length == 1) ? '0' + hours : hours;
-
-                        var datetime =  ("0" + (currentdate.getMonth() + 1)).slice(-2) + "-" +
-                                        ("0" + currentdate.getDate()).slice(-2) + "-" +
-                                        currentdate.getFullYear() + "-"
-                                        + hours + "-" +
-                                        + currentdate.getMinutes() + "-" +
-                                        currentdate.getSeconds();
-
-                        var canvas = document.getElementById("canvas");
-
-                        if (canvas.msToBlob) { //for IE
-                            var blob = canvas.msToBlob();
-                            window.navigator.msSaveBlob(blob, mapSlug + datetime + '.png');
+                            $.ajax('../api/sendonline', {
+                                cache: false,
+                                method: 'POST',
+                                data: {
+                                    slug: onlineSlug,
+                                    image: dataURL
+                                }
+                            });
                         } else {
-                            //other browsers
-
                             // create an off-screen anchor tag
                             var lnk = document.createElement('a'),
                                 e;
-                                lnk.href = canvas.toDataURL();
-                                lnk.download = mapSlug + datetime + '.png';
 
-                            if (document.createEvent) {
+                            // get current datetime
+                            var currentdate = new Date();
 
-                                e = document.createEvent("MouseEvents");
-                                e.initMouseEvent("click", true, true, window,
-                                                 0, 0, 0, 0, 0, false, false, false,
-                                                 false, 0, null);
+                            var hours = (currentdate.getHours() > 12) ? currentdate.getHours() + 12 : currentdate.getHours();
+                            hours = (hours.toString().length == 1) ? '0' + hours : hours;
 
-                                lnk.dispatchEvent(e);
+                            var datetime =  ("0" + (currentdate.getMonth() + 1)).slice(-2) + "-" +
+                                            ("0" + currentdate.getDate()).slice(-2) + "-" +
+                                            currentdate.getFullYear() + "-"
+                                            + hours + "-" +
+                                            + currentdate.getMinutes() + "-" +
+                                            currentdate.getSeconds();
 
-                            } else if (lnk.fireEvent) {
-                                lnk.fireEvent("onclick");
+                            var canvas = document.getElementById("canvas");
+
+                            if (canvas.msToBlob) { //for IE
+                                var blob = canvas.msToBlob();
+                                window.navigator.msSaveBlob(blob, mapSlug + datetime + '.png');
+                            } else {
+                                //other browsers
+
+                                // create an off-screen anchor tag
+                                var lnk = document.createElement('a'),
+                                    e;
+                                    lnk.href = canvas.toDataURL();
+                                    lnk.download = mapSlug + datetime + '.png';
+
+                                if (document.createEvent) {
+
+                                    e = document.createEvent("MouseEvents");
+                                    e.initMouseEvent("click", true, true, window,
+                                                     0, 0, 0, 0, 0, false, false, false,
+                                                     false, 0, null);
+
+                                    lnk.dispatchEvent(e);
+
+                                } else if (lnk.fireEvent) {
+                                    lnk.fireEvent("onclick");
+                                }
                             }
                         }
                     }

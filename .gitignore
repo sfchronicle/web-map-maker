@@ -2,3 +2,4 @@
 src/js/config.js
 config.yaml
 .env
+*_og.png

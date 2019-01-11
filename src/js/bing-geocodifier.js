@@ -29,7 +29,7 @@ var BingGeocodifier = function(el, params) {
     this.results = null;
     this.filters = params.filters || null;
     this.selectedResult = null;
-
+    this.bingPriorityLatLong = "37.7749,-122.4194"; // This will serve results close to this LatLong first!
 
     this.lookupForm = document.createElement("form");
     this.lookupForm.id = 'bing-geocodifier-form';
@@ -265,7 +265,7 @@ BingGeocodifier.prototype.getGeocodeData = function(e) {
 
         } else {
             var toGeocode = this.textInput.value,
-                url = this.bingApiUrl + "?q=" + encodeURIComponent(toGeocode) + '&key=' + this.bingApiKey + "&maxResults=10&jsonp=JSONPCallback";
+                url = this.bingApiUrl + "?q=" + encodeURIComponent(toGeocode) + "&key=" + this.bingApiKey + "&maxResults=10&jsonp=JSONPCallback&userLocation=" + this.bingPriorityLatLong;
 
             this.statusMessage.textContent = "Searching ...";
             this.statusMessage.classList.remove("hidden");
