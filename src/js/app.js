@@ -471,7 +471,7 @@ function downloadIMG(onlineSlug) {
                         // try sending screenshot to python
                         if (onlineSlug){
                             var canvas = document.getElementById("canvas");
-                            var dataURL = canvas.toDataURL('image/png');
+                            var dataURL = canvas.toDataURL('image/jpeg',1);
 
                             $.ajax('../api/sendonline', {
                                 cache: false,

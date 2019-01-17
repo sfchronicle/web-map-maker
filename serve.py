@@ -1,38 +1,18 @@
-from poster.encode import multipart_encode
-import SimpleHTTPServer
 from ftplib import FTP
-import urllib, urllib2
-import SocketServer
-import urlparse
+import urllib
+import base64
+import http.server
+import requests
 import json
 import os
 import re
 PORT = 8000
 
-class CustomHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class CustomHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
-        if None != re.search('/api/square/*', self.path):
-            num = float(self.path.split('/')[-1])
-            print self.path.split('/')
-            #This URL will trigger our sample function and send what it returns back to the browser
-            self.send_response(200)
-            self.send_header('Content-type','text/html')
-            self.end_headers()
-            self.wfile.write(str(num*num)) #call sample function here
-            return
-        if None != re.search('/api/mult/*', self.path):
-            num1 = float(self.path.split('/')[-1])
-            num2 = float(self.path.split('/')[-2])
-            #This URL will trigger our sample function and send what it returns back to the browser
-            self.send_response(200)
-            self.send_header('Content-type','text/html')
-            self.end_headers()
-            self.wfile.write(str(num1*num2)) #call sample function here
-            return
-        else:
-            #serve files, and directory listings by following self.path from
-            #current working directory
-            SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
+        #serve files, and directory listings by following self.path from
+        #current working directory
+        http.server.SimpleHTTPRequestHandler.do_GET(self)
 
 
     def do_POST(self):
@@ -42,40 +22,35 @@ class CustomHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             with open('.env', 'r') as f:
                 env_vars = json.load(f)
 
-            
-
             # Grab data out of the post req
-            content_len = int(self.headers.getheader('content-length', 0))
+            content_len = int(self.headers.get('content-length', 0))
             post_body = self.rfile.read(content_len)
-            fields = urlparse.parse_qs(post_body)
-            pure_image = fields['image'][0].split(',', 1)[1]
-            file_name = fields['slug'][0]+".png"
+            fields = urllib.parse.parse_qs(post_body)
+
+            # Convert byte data to strings
+            newFields = {str(key, 'utf-8'): str(value[0], 'utf-8') for (key, value) in fields.items()}
+
+            # Grab what we want
+            pure_image = newFields['image'].split(',', 1)[1]
+            file_name = newFields['slug']+".jpg"
 
             # Write image to disk from data
+            imgdata = base64.b64decode(pure_image)
             with open(file_name, "wb") as fh:
-                fh.write(pure_image.decode('base64'))
+                fh.write(imgdata)
 
-            # my_file = {
-            #   'file': (file_name, open(file_name, 'rb'), 'png')
-            # }
+            # Slack file prep
+            my_file = {
+              'file': (file_name, open(file_name, 'rb'), 'jpg')
+            }
+            payload={
+              "filename": "map.jpg", 
+              "token": env_vars["slack_bot_token"], 
+              "channels": ["CC571F06P"], 
+            }
 
-            
-
-            # r = requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
-            print "HI"
-            with open(file_name, 'rb') as uploadfile:
-                payload = urllib.urlencode({
-                    "token": env_vars["slack_bot_token"],
-                    "filename": "composed_" + file_name,
-                    "title": "Composed File",
-                    "channels": ["CC571F06P"],
-                    "file": uploadfile.read()
-                })
-                request = urllib2.Request("https://slack.com/api/files.upload", data=payload)
-                response = urllib2.urlopen(request)
-                print response.read()
-            # WORKING -- THIS ALMOST WORKS
-
+            # Hit Slack with the image
+            r = requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
 
             # Init FTP session
             session = FTP(env_vars['ftp_server'],env_vars['ftp_username'],env_vars['ftp_password'])
@@ -96,8 +71,6 @@ class CustomHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             return
       
 
-
-
-httpd = SocketServer.ThreadingTCPServer(('', PORT),CustomHandler)
+httpd = http.server.HTTPServer(("localhost",PORT),CustomHandler)
 print("serving custom server at port ", PORT)
 httpd.serve_forever()
