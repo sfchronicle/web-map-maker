@@ -386,7 +386,7 @@ function sendOnline(e) {
     var slug = prompt("Enter a NewsGate slug to send this map to the file");
 
     if (slug){
-        downloadIMG(slug+"_og"); // Append _og to identify the Map Maker image in the package
+        downloadIMG(slug+"_map"); // Append _map to identify the Map Maker image in the package
     }
 }
 
