@@ -52,10 +52,25 @@ global:
 Then you're ready to run the mapmaker. The easiest way is to fire up a simple python server (obviously you'll need python) with this command:
 
 ```sh
-python serve.py
+python3 serve.py
 ```
 
 The app will be hosted at `localhost:8000`.
+
+When you're running this on the server, you'll need this command to run it forever:
+
+```sh
+nohup python3 serve.py &
+```
+
+To kill the process later, you can do this:
+
+```sh
+sudo lsof -n -i :8000
+kill -9 <# output from above>
+```
+
+
 
 ## Vector files for print
 Because we make maps for web and print, if you select a column size from the drop-down you'll get a map with the column-equivelant for our six-column layout. The vector paths exported from "download vector" can then be converted to CMYK.
