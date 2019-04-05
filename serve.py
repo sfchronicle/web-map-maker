@@ -1,6 +1,7 @@
 from ftplib import FTP
 import urllib
 import base64
+import socketserver
 import http.server
 import requests
 import json
@@ -54,6 +55,8 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
 
             # Init FTP session
             session = FTP(env_vars['ftp_server'],env_vars['ftp_username'],env_vars['ftp_password'])
+            # THIS WON'T WORK UNLESS THE DNS IS CORRECT
+            # MAKE SURE /etc/resolv.conf IN EC2 HAS nameserver 10.212.32.227 AND nameserver 10.212.32.228 listed
 
             # Special handling for FTP system
             file = open(file_name,'rb')
@@ -70,7 +73,6 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             return
       
-
-httpd = http.server.HTTPServer(("localhost",PORT),CustomHandler)
-print("serving custom server at port ", PORT)
-httpd.serve_forever()
+with socketserver.TCPServer(("", PORT), CustomHandler) as httpd:
+    print("serving custom server at port ", PORT)
+    httpd.serve_forever()
