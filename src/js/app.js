@@ -176,7 +176,8 @@ var map = L.map('map', {
     minZoom: 2,
     maxZoom: 19,
     closePopupOnClick: false,
-    zoomControl: false
+    zoomControl: false,
+    doubleClickZoom: false
 });
 
 map.attributionControl.setPrefix(attribution+'Nextzen, OpenStreetMap');
@@ -1022,7 +1023,8 @@ function zoomFreeze() {
             .removeClass('fa-lock')
             .addClass('fa-unlock-alt');
         map.touchZoom.enable();
-        map.doubleClickZoom.enable();
+        // uncomment to enable doublclick zoom
+        // map.doubleClickZoom.enable();
         map.scrollWheelZoom.enable();
         map.boxZoom.enable();
         map.keyboard.enable();
