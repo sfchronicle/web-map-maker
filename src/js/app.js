@@ -455,7 +455,7 @@ function downloadIMG(onlineSlug) {
                     };
                     img.src = url;
                 }
-                
+
                 // any popup text layers and other html like the source and ruler
                 html2canvas($("#map"), {
 
@@ -1080,7 +1080,7 @@ function addCustomLabel(pointer) {
     var customLabel = L.marker(map.getCenter(), {draggable: true, icon: L.divIcon ({
         iconSize: [0, 0],
         iconAnchor: [0, 0],
-        html: '<div class="draggable custom_label medium_label" id="custom_label'+thisID+'"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea><i title="Click+drag to rotate" class="fa fa-repeat m_handle rotate_handle" aria-hidden="true"></i> <i title="Click+drag to resize" class="fa fa-expand m_handle resize_handle" aria-hidden="true"></i> <i title="Click to add tooltip arrow" class="fa fa-comment m_handle tooltip_handle" aria-hidden="true"></i> <i title="Click to invert theme" class="fa fa-lightbulb-o m_handle invert_handle" aria-hidden="true"></i> <i title="Click to remove" class="fa fa-times m_handle remove_label" aria-hidden="true"></i></div>',
+        html: '<div class="draggable custom_label black medium_label" id="custom_label'+thisID+'"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea><i title="Click+drag to rotate" class="fa fa-repeat m_handle rotate_handle" aria-hidden="true"></i> <i title="Click+drag to resize" class="fa fa-expand m_handle resize_handle" aria-hidden="true"></i> <i title="Click to add tooltip arrow" class="fa fa-comment m_handle tooltip_handle" aria-hidden="true"></i> <i title="Click to invert theme" class="fa fa-lightbulb-o m_handle invert_handle" aria-hidden="true"></i> <i title="Click to remove" class="fa fa-times m_handle remove_label" aria-hidden="true"></i></div>',
         className: 'text-label ui-resizable',
         id: 'custom_label'+thisID
     })});
@@ -1114,7 +1114,7 @@ $( function() {
     _renderItem: function( ul, item ) {
 
             var li = $( "<li>" ),
-            wrapper = $( "<div>", { 
+            wrapper = $( "<div>", {
                 html: "<p class='icon-name'>"+item.label+"</p>"
             });
 
@@ -1259,7 +1259,7 @@ $('body').on('mousedown', '.rotate_handle', function(e) {
             // If this can't fire for some reason, log the error
             console.log(err);
         }
-        
+
         map.dragging.enable();
 
         // Remove event bindings in case they are still active
@@ -1339,19 +1339,19 @@ $('body').on('mouseup', '.tooltip_handle', function(e) {
     var tooltipHTML = '<div class="leaflet-popup-tip-container"><div class="leaflet-popup-tip"></div></div>';
     switch($(this).data("tooltip")){
         case 0: $(this).parent().find(".leaflet-popup-tip-container").remove(); // Remove any existing tooltips
-            break; 
+            break;
         case 1: $(this).parent().append(tooltipHTML); // Add tooltip
             $(this).parent().find(".leaflet-popup-tip-container").addClass("bottom"); // Add class
-            break; 
+            break;
         case 2: $(this).parent().find(".leaflet-popup-tip-container").removeClass("bottom");
-            $(this).parent().find(".leaflet-popup-tip-container").addClass("right"); 
-            break; 
-        case 3: $(this).parent().find(".leaflet-popup-tip-container").removeClass("right"); 
-            $(this).parent().find(".leaflet-popup-tip-container").addClass("top"); 
-            break; 
-        case 4: $(this).parent().find(".leaflet-popup-tip-container").removeClass("top"); 
-            $(this).parent().find(".leaflet-popup-tip-container").addClass("left"); 
-            break; 
+            $(this).parent().find(".leaflet-popup-tip-container").addClass("right");
+            break;
+        case 3: $(this).parent().find(".leaflet-popup-tip-container").removeClass("right");
+            $(this).parent().find(".leaflet-popup-tip-container").addClass("top");
+            break;
+        case 4: $(this).parent().find(".leaflet-popup-tip-container").removeClass("top");
+            $(this).parent().find(".leaflet-popup-tip-container").addClass("left");
+            break;
     }
 });
 
