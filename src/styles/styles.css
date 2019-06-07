@@ -39,7 +39,7 @@ body h1 {
     font-weight: bold;
 }
 
-body { 
+body {
     padding: 0 0 30px;
 }
 
@@ -272,8 +272,8 @@ label {font:18px/27px Georgia, serif;}
     width: 50px;
     height: 30px;
     margin-left: -9px;
-    /* 
-      IT MAKES ZERO SENSE BUT THESE ARE INVERTED (ONLY ON PREVIEW) 
+    /*
+      IT MAKES ZERO SENSE BUT THESE ARE INVERTED (ONLY ON PREVIEW)
       OTHERWISE IT'LL SHOW THE WRONG COLOR (BUT EXPORT CORRECTLY)
     */
     background: url(../images/popup-tip.png) top left no-repeat;
@@ -286,13 +286,13 @@ label {font:18px/27px Georgia, serif;}
 }
 
 .custom_label.black .leaflet-popup-tip {
-  /* 
-    IT MAKES ZERO SENSE BUT THESE ARE INVERTED (ONLY ON PREVIEW) 
+  /*
+    IT MAKES ZERO SENSE BUT THESE ARE INVERTED (ONLY ON PREVIEW)
     OTHERWISE IT'LL SHOW THE WRONG COLOR (BUT EXPORT CORRECTLY)
   */
   background: url(../images/popup-tip-black.png) top left no-repeat;
   filter: invert(1);
-} 
+}
 
 .custom_label.black span.display_text, .custom_label.black textarea.text_input {
   color: white !important;
@@ -490,7 +490,7 @@ p.description {
     /*min-width: 200px;*/
     display: inline-block;
     background-color: white;
-    padding: 15px;
+    padding: 10px;
 }
 
 .custom_label.black {
@@ -705,7 +705,7 @@ input[type=range]:focus::-ms-fill-upper {
   width: auto;
   pointer-events: none;
 }
- 
+
 .ui-menu-icons .ui-menu-item-wrapper {
   padding: 0 0 0 40px;
 }
@@ -775,7 +775,7 @@ input[type=range]:focus::-ms-fill-upper {
   margin-left: 0;
 }
 
-.ui-tooltip { 
+.ui-tooltip {
   box-shadow: 1px 1px 1px black;
   font: bold 12px "Antenna Medium", sans-serif;
   opacity: 0.8;
