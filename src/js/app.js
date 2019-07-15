@@ -1082,7 +1082,8 @@ function addCustomLabel(pointer) {
     var customLabel = L.marker(map.getCenter(), {draggable: true, icon: L.divIcon ({
         iconSize: [0, 0],
         iconAnchor: [0, 0],
-        html: '<div class="draggable custom_label black medium_label" id="custom_label'+thisID+'"><span class="display_text">Here\'s your label</span><textarea class="text_input" maxlength="100"></textarea><i title="Click+drag to rotate" class="fa fa-repeat m_handle rotate_handle" aria-hidden="true"></i> <i title="Click+drag to resize" class="fa fa-expand m_handle resize_handle" aria-hidden="true"></i> <i title="Click to add tooltip arrow" class="fa fa-comment m_handle tooltip_handle" aria-hidden="true"></i> <i title="Click to invert theme" class="fa fa-lightbulb-o m_handle invert_handle" aria-hidden="true"></i> <i title="Click to remove" class="fa fa-times m_handle remove_label" aria-hidden="true"></i></div>',
+        html: '<div class="draggable custom_label black medium_label" id="custom_label'+thisID+'"><span class="display_text">Here\'s your label</span><textarea class="text_input"></textarea>\
+        <div class="icons"><i title="Click+drag to rotate" class="fa fa-repeat m_handle rotate_handle" aria-hidden="true"></i> <i title="Click+drag to resize" class="fa fa-expand m_handle resize_handle" aria-hidden="true"></i> <i title="Click to add tooltip arrow" class="fa fa-comment m_handle tooltip_handle" aria-hidden="true"></i> <i title="Click to invert theme" class="fa fa-lightbulb-o m_handle invert_handle" aria-hidden="true"></i> <i title="Click to remove" class="fa fa-times m_handle remove_label" aria-hidden="true"></i></div></div>',
         className: 'text-label ui-resizable',
         id: 'custom_label'+thisID
     })});
@@ -1178,7 +1179,7 @@ $('body').on('blur', '.text_input', function() {
 
 // delete label
 $('body').on('click', '.remove_label', function() {
-    var parentID = $(this).parent()[0].id;
+    var parentID = $(this).closest(".custom_label")[0].id;
 
     // loop through label list to find match
     for (var i = 0; i < customLabels.length; i++) {
@@ -1204,7 +1205,7 @@ $('body').on('click', '.remove_label', function() {
 $('body').on('mousedown', '.rotate_handle', function(e) {
     // get the right custom label from object
     for (var i = 0; i < customLabels.length; i++) {
-        if (customLabels[i].options.icon.options.id == $(this).parent()[0].id) {
+        if (customLabels[i].options.icon.options.id == $(this).closest(".custom_label")[0].id) {
             var customLabel = customLabels[i]
         }
     }
@@ -1213,7 +1214,7 @@ $('body').on('mousedown', '.rotate_handle', function(e) {
     customLabel.dragging.disable();
     map.dragging.disable();
 
-    var target = $(this).parent(),
+    var target = $(this).closest(".custom_label"),
         originX = target.offset().left + target.width() / 2,
         originY = target.offset().top + target.height() / 2,
         dragging = true,
@@ -1273,7 +1274,7 @@ $('body').on('mousedown', '.rotate_handle', function(e) {
 $('body').on('mousedown', '.resize_handle', function(e) {
     // get the right custom label from object
     for (var i = 0; i < customLabels.length; i++) {
-        if (customLabels[i].options.icon.options.id == $(this).parent()[0].id) {
+        if (customLabels[i].options.icon.options.id == $(this).closest(".custom_label")[0].id) {
             var customLabel = customLabels[i]
         }
     }
@@ -1282,7 +1283,7 @@ $('body').on('mousedown', '.resize_handle', function(e) {
     customLabel.dragging.disable();
     map.dragging.disable();
 
-    var target = $(this).parent(),
+    var target = $(this).closest(".custom_label"),
         originX = target.offset().left + target.width() / 2,
         originY = target.offset().top + target.height() / 2,
         dragging = true,
@@ -1334,25 +1335,25 @@ $('body').on('mouseup', '.tooltip_handle', function(e) {
         $(this).data("tooltip", $(this).data("tooltip") + 1);
     }
 
-    console.log($(this).parent()[0]);
+    console.log($(this).closest(".custom_label")[0]);
     console.log($(this).data("tooltip"));
 
     // Handle moving the tooltip around the box
     var tooltipHTML = '<div class="leaflet-popup-tip-container"><div class="leaflet-popup-tip"></div></div>';
     switch($(this).data("tooltip")){
-        case 0: $(this).parent().find(".leaflet-popup-tip-container").remove(); // Remove any existing tooltips
+        case 0: $(this).closest(".custom_label").find(".leaflet-popup-tip-container").remove(); // Remove any existing tooltips
             break;
-        case 1: $(this).parent().append(tooltipHTML); // Add tooltip
-            $(this).parent().find(".leaflet-popup-tip-container").addClass("bottom"); // Add class
+        case 1: $(this).closest(".custom_label").append(tooltipHTML); // Add tooltip
+            $(this).closest(".custom_label").find(".leaflet-popup-tip-container").addClass("bottom"); // Add class
             break;
-        case 2: $(this).parent().find(".leaflet-popup-tip-container").removeClass("bottom");
-            $(this).parent().find(".leaflet-popup-tip-container").addClass("right");
+        case 2: $(this).closest(".custom_label").find(".leaflet-popup-tip-container").removeClass("bottom");
+            $(this).closest(".custom_label").find(".leaflet-popup-tip-container").addClass("right");
             break;
-        case 3: $(this).parent().find(".leaflet-popup-tip-container").removeClass("right");
-            $(this).parent().find(".leaflet-popup-tip-container").addClass("top");
+        case 3: $(this).closest(".custom_label").find(".leaflet-popup-tip-container").removeClass("right");
+            $(this).closest(".custom_label").find(".leaflet-popup-tip-container").addClass("top");
             break;
-        case 4: $(this).parent().find(".leaflet-popup-tip-container").removeClass("top");
-            $(this).parent().find(".leaflet-popup-tip-container").addClass("left");
+        case 4: $(this).closest(".custom_label").find(".leaflet-popup-tip-container").removeClass("top");
+            $(this).closest(".custom_label").find(".leaflet-popup-tip-container").addClass("left");
             break;
     }
 });

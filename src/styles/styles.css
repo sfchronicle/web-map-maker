@@ -500,14 +500,21 @@ p.description {
     padding: 10px;
 }
 
+.custom_label .icons {
+    position: absolute;
+    bottom: -10px;
+    height: 0;
+    line-height: 0px;
+}
+
 .custom_label.black {
     background-color: black;
-    color: white !important;
+    /*color: white !important;*/
 }
 
 .custom_label .rotate_handle {
     display: block;
-    margin: 3px 10px 0 0;
+    margin: 0 5px 0 0;
     float: left;
 }
 
