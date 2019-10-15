@@ -8,14 +8,14 @@
 
 @font-face{
   font-family: 'Antenna Extra Light';
-  src: url(''https://files.sfchronicle.com/fonts/Extra-Light.woff'');
+  src: url('https://files.sfchronicle.com/fonts/Antenna-Extra-Light.woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face{
   font-family: 'Antenna Extra Bold';
-  src: url(''https://files.sfchronicle.com/fonts/Antenna-Black.woff'');
+  src: url('https://files.sfchronicle.com/fonts/Antenna-Black.woff');
   font-weight: bold;
   font-style: normal;
 }
