@@ -1,35 +1,35 @@
 
 @font-face{
   font-family: 'Antenna Regular';
-  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/regular/antennaregular.woff');
+  src: url('https://files.sfchronicle.com/fonts/Antenna-Regular.woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face{
   font-family: 'Antenna Extra Light';
-  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/extralight/antennaextralight.woff');
+  src: url(''https://files.sfchronicle.com/fonts/Extra-Light.woff'');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face{
   font-family: 'Antenna Extra Bold';
-  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/b9884997-4bb8-4ffa-ac3c-a2d5598fb1b2-3.woff');
+  src: url(''https://files.sfchronicle.com/fonts/Antenna-Black.woff'');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face{
   font-family: 'Antenna Bold';
-  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/b9884997-4bb8-4ffa-ac3c-a2d5598fb1b2-3.woff');
+  src: url('https://files.sfchronicle.com/fonts/Antenna-Bold.woff');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face{
   font-family: 'Antenna Medium';
-  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/2908d944-93cf-4073-8ab6-ff417bc9759a-3.woff');
+  src: url('https://files.sfchronicle.com/fonts/Antenna-Medium.woff');
   font-weight: bold;
   font-style: normal;
 }

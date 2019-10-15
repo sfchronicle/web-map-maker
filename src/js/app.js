@@ -414,7 +414,7 @@ function downloadIMG(onlineSlug) {
         $(".geo-target").hide();
 
         // Shift to make up for weirdness
-        $(".custom_label .display_text").css({"position": "relative", "top": "-0.2em"});
+        $(".custom_label .display_text").css({"position": "relative", "top": "0"});
 
         // basemap
         scene.screenshot().then(function(screenshot) {
