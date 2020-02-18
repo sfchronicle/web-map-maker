@@ -1,35 +1,35 @@
 
 @font-face{
   font-family: 'Antenna Regular';
-  src: url('https://files.sfchronicle.com/fonts/Antenna-Regular.woff');
+  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/regular/antennaregular.woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face{
   font-family: 'Antenna Extra Light';
-  src: url('https://files.sfchronicle.com/fonts/Antenna-Extra-Light.woff');
+  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/extralight/antennaextralight.woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face{
   font-family: 'Antenna Extra Bold';
-  src: url('https://files.sfchronicle.com/fonts/Antenna-Black.woff');
+  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/b9884997-4bb8-4ffa-ac3c-a2d5598fb1b2-3.woff');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face{
   font-family: 'Antenna Bold';
-  src: url('https://files.sfchronicle.com/fonts/Antenna-Bold.woff');
+  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/b9884997-4bb8-4ffa-ac3c-a2d5598fb1b2-3.woff');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face{
   font-family: 'Antenna Medium';
-  src: url('https://files.sfchronicle.com/fonts/Antenna-Medium.woff');
+  src: url('https://s3-us-west-1.amazonaws.com/projects.sfchronicle.com/shared/fonts/antenna/2908d944-93cf-4073-8ab6-ff417bc9759a-3.woff');
   font-weight: bold;
   font-style: normal;
 }
@@ -39,7 +39,7 @@ body h1 {
     font-weight: bold;
 }
 
-body {
+body { 
     padding: 0 0 30px;
 }
 
@@ -164,8 +164,8 @@ body {
 
 #map_holder {
     padding: 0;
-    width: 1290px;
-    height: 853px;
+    width: 810px;
+    height: 530px;
     margin: 25px 0 0 25px;
 }
 
@@ -241,16 +241,9 @@ label {font:18px/27px Georgia, serif;}
     height:34px;
     color:#777;
     padding: 4px 9px 0;
-    width: 100%;
-    text-align: right;
 }
-
 .leaflet-container .leaflet-control-attribution {
-    background: rgba(255,255,255,1);
-}
-
-.leaflet-control-container .leaflet-bottom.leaflet-right {
-    width: 100%;
+    background: rgba(255,255,255,0.9);
 }
 
 .leaflet-control-attribution a { display: none; }
@@ -279,8 +272,8 @@ label {font:18px/27px Georgia, serif;}
     width: 50px;
     height: 30px;
     margin-left: -9px;
-    /*
-      IT MAKES ZERO SENSE BUT THESE ARE INVERTED (ONLY ON PREVIEW)
+    /* 
+      IT MAKES ZERO SENSE BUT THESE ARE INVERTED (ONLY ON PREVIEW) 
       OTHERWISE IT'LL SHOW THE WRONG COLOR (BUT EXPORT CORRECTLY)
     */
     background: url(../images/popup-tip.png) top left no-repeat;
@@ -293,13 +286,13 @@ label {font:18px/27px Georgia, serif;}
 }
 
 .custom_label.black .leaflet-popup-tip {
-  /*
-    IT MAKES ZERO SENSE BUT THESE ARE INVERTED (ONLY ON PREVIEW)
+  /* 
+    IT MAKES ZERO SENSE BUT THESE ARE INVERTED (ONLY ON PREVIEW) 
     OTHERWISE IT'LL SHOW THE WRONG COLOR (BUT EXPORT CORRECTLY)
   */
   background: url(../images/popup-tip-black.png) top left no-repeat;
   filter: invert(1);
-}
+} 
 
 .custom_label.black span.display_text, .custom_label.black textarea.text_input {
   color: white !important;
@@ -497,24 +490,17 @@ p.description {
     /*min-width: 200px;*/
     display: inline-block;
     background-color: white;
-    padding: 10px;
-}
-
-.custom_label .icons {
-    position: absolute;
-    bottom: -10px;
-    height: 0;
-    line-height: 0px;
+    padding: 15px;
 }
 
 .custom_label.black {
     background-color: black;
-    /*color: white !important;*/
+    color: white !important;
 }
 
 .custom_label .rotate_handle {
     display: block;
-    margin: 0 5px 0 0;
+    margin: 3px 10px 0 0;
     float: left;
 }
 
@@ -719,7 +705,7 @@ input[type=range]:focus::-ms-fill-upper {
   width: auto;
   pointer-events: none;
 }
-
+ 
 .ui-menu-icons .ui-menu-item-wrapper {
   padding: 0 0 0 40px;
 }
@@ -789,7 +775,7 @@ input[type=range]:focus::-ms-fill-upper {
   margin-left: 0;
 }
 
-.ui-tooltip {
+.ui-tooltip { 
   box-shadow: 1px 1px 1px black;
   font: bold 12px "Antenna Medium", sans-serif;
   opacity: 0.8;
